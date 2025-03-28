@@ -1,0 +1,18 @@
+
+body {
+    background-color: rgb(255, 128, 0);
+}
+
+.titulo {
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    text-align: center;
+    color: blue;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto; /* Centra horizontalmente */
+    width: 300px; /* Ajusta el tamaño de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
