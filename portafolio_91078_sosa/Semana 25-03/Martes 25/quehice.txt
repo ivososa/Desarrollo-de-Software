@@ -1,3 +1,0 @@
-En esta clase basicamente aprendimos lo basico de HTML, y de tarea quedo hacer nuestro propio
-Curriculum vitae en un archivo index.HTML.
-
