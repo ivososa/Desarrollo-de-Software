@@ -1,0 +1,6 @@
+* bajar el codigo y trabajarlo localmente
+* agregar al Formulario el atributo:  action="https://labsys.frc.utn.edu.ar/dds-express/eco"  y probar "Grabar"
+* actualizar "mostrarDatos()", para que muestre todos los campos
+* agregar un campo para una foto  
+* subir a su repositorio
+

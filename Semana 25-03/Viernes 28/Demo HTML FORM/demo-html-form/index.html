@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML basico</title>
+</head>
+<body>
+    <form method="post" Action="" >
+        <h3 >PERSONA</h3>
+        <fieldset>
+            <legend style="background-color: aqua;" >Datos de la persona</legend>
+            <!-- aqui usamos una tabla para maquetar los label y los input -->
+            <!-- esta practica esta deprecada a favor del uso de divs -->
+            <!-- ya lo veremos en la unidad de css -->
+
+         
+                    
+            <table>
+                <tr>
+                    <td><label>Apellido</label></td>
+                    <td>
+                        <input type='text' name='ApellidoCompleto' id='ApellidoCompleto'  maxlength="30" placeholder="paterno y materno" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="Nombre" >Nombre</label></td>
+                    <td><input type='text' name='Nombre' id="Nombre" maxlength="30" required /></td>
+                </tr>
+                <tr>
+                    <td><label for="Foto">Foto</label></td>
+                    <td>
+                        <input type="file" name="Foto" id="Foto" accept="image/*" onchange="previewImage(event)" />
+                        <br />
+                        <img id="preview" src="usuario.png" alt="Previsualización" style="width: 100px; height: auto; margin-top: 10px;" />
+                    </td>
+                </tr>
+                <script>
+                    function previewImage(event) {
+                        const preview = document.getElementById('preview');
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                preview.src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
+                <tr>
+                    <td><label>Sexo</label></td>
+                    <td>
+                        <input type="radio"
+                               name="Sexo"
+                               id="Masculino"
+                               value="Masc"
+                               checked />
+                        <label for="Masculino">Masculino</label>
+                        <input type="radio"
+                               name="Sexo"
+                               id="Femenino"
+                               value="Fem" />
+                        <label for="Femenino">Femenino</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Tipo Documento</label></td>
+                    <td>
+                        <select name="TipoDocumento" id="TipoDocumento">
+                            <option  selected value=""></option>
+                            <option >Documento Nacional de Identidad</option>
+                            <option value="LC">Libreta Civica</option>
+                            <option value="LEN">Libreta de Enrolamiento</option>
+                            <option  value="PSP">Pasaporte</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Numero de Documento</label></td>
+                    <td><input type='number' name='NumeroDocumento' id='NumeroDocumento'  /></td>
+                </tr>
+                <tr>
+                    <td><label>Fecha Nacimiento</label></td>
+                    <td>
+                        <input type='date' name="FechaNacimiento" id='FechaNacimiento' />
+                        <!-- <button type="button" onclick="alert(document.getElementById('FechaNacimiento').value)" >Ver fecha</button> -->
+                        <!-- <button type="button" onclick="document.getElementById('FechaNacimiento').value='2021-12-21'" >Setear fecha</button> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Telefono</label></td>
+                    <td>
+                        <input type='number' value="0054" disabled />
+                        <input type='number' name="Telefono" id="Telefono"  />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Ingresos Mensuales</label></td>
+                    <td><input type='number' name='IngresosMensuales' id='IngresosMensuales' step="0.05" /></td>
+                </tr>
+                
+                <tr>
+                    <td><label>Comida preferida</label></td>
+                    <td>
+                        <select name="ComidaPreferida" id="ComidaPreferida" size="3">
+                            <option value="Lomito completo">Lomito completo</option>
+                            <option value="pmuz">Pizza muzzarela</option>
+                            <option value="tjam">Tarta jam&oacute;n</option>
+                            <option value="smil">Sándwich milanesa</option>
+                            <option value="" selected>(Sin selección)</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Observaciones</label></td>
+                    <td>
+                        <textarea rows="7" cols="60" name="Observaciones" id="Observaciones" placeholder="Ingrese sus comentarios aqui">
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox"
+                        id = "TieneAutoPropio"
+                               name="TieneAutoPropio"
+                               checked
+                        />
+                        <label for="TieneAutoPropio">Tiene Auto Propio</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox"
+                               id="TieneCasaPropia"
+                               name="TieneCasaPropia"
+                               checked                                
+                               onclick="
+                               document.getElementById('divDomicilio').style.display =
+                               (this.checked  ? 'block' : 'none')
+                               " />
+                        <label for="TieneCasaPropia">Tiene Casa Propia</label>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        
+        <div id="divDomicilio">
+            <fieldset>
+                <legend style="background-color: aqua;">Casa Propia - Domicilio</legend>
+    
+                <table>
+                    <tr>
+                        <td><label>Calle</label></td>
+                        <td><input type='text' name='Calle' id='Calle' maxlength="20" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Altura</label></td>
+                        <td><input type='number' name='Altura' id='Altura' /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Localidad</label></td>
+                        <td><input type='text' name='Localidad' id='Localidad' /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Provincia</label></td>
+                        <td>
+                            <select name="Provincia" id="Provincia">
+                                <option selected="selected" value="COR">Cordoba</option>
+                                <option value="BSAS">Buenos Aires</option>
+                                <option value="SLS">San Luis</option>
+                                <option value="SFE">Santa Fe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Codigo Postal</label></td>
+                        <td><input type='number' name='CodigoPostal' id='CodigoPostal'  /></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        
+        
+        </br>
+        <!-- <input type='submit' value='Grabar' /> -->
+        <button type="submit" >Grabar</button>
+        &nbsp;
+        <button type="button" onclick="mostrarDatos()">Mostrar Datos</button>
+        &nbsp;
+        <input type='reset' value='Reiniciar formulario' />
+    </form>
+    <script>
+      function mostrarDatos() {
+        let ApellidoCompleto = document.getElementById('ApellidoCompleto').value;
+        let Nombre = document.getElementById ('Nombre').value;
+        let IngresosMensuales = document.getElementById('IngresosMensuales').value;
+       let Sexo = document.querySelector('input[name="Sexo"]:checked').value;
+        let TipoDocumento = document.getElementById('TipoDocumento').value;
+        let NumeroDocumento = document.getElementById('NumeroDocumento').value;
+        let FechaNacimiento = document.getElementById('FechaNacimiento').value;
+        
+  
+        let mensaje = 'ApellidoCompleto: ' + ApellidoCompleto + '\n';
+        mensaje += 'Nombre: ' + Nombre + '\n';
+        mensaje += 'Sexo: ' + Sexo + '\n';
+        mensaje += 'Ingresos Mensuales: ' + IngresosMensuales + '\n';
+        //mensaje += 'Tipo Documento: ' + TipoDocumento + '\n';
+        mensaje += 'Numero Documento: ' + NumeroDocumento + '\n';
+        mensaje += 'Fecha de Nacimiento: ' + FechaNacimiento + '\n';
+  
+        alert(mensaje);
+    
+      }
+    </script>
+</body>
+</html>

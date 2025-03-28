@@ -1,0 +1,22 @@
+El profe nos paso un archivo que tenia lo siguiente...
+
+Formularios demo y ejercicio
+https://stackblitz.com/edit/demo-html-form?file=index.html
+Esta aplicacion la vamos a usar seguido para ir probando lo que vamos codeando en tiempo real en la misma pantalla.
+
+
+PPT ccs (que ya estan en material adicional)
+
+Demo-css
+https://stackblitz.com/edit/demo-css
+
+
+Ejercicio-css
+https://stackblitz.com/edit/ejercicio-css-1
+
+
+
+Ese archivo lo agrego al material adicional de la materia en la UV, son unos links que nos van a servir
+
+
+UN INPUT CUANDO NO TIENE LA PROPIEDAD TYPE, AUTOMATICAMENTE ES DE PROPIEDAD TEXT
