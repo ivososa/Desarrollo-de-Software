@@ -1,0 +1,11 @@
+En este archivo voy a realizar la actividad de conflicto. Basicamente lo que voy a hacer es, 
+usando dos editores de codigo, uno en la computadora de escritorio y uno en la notebook, 
+voy a editar el codigo de este archivo en su ultima linea, y lo voy a pushear, pero en la 
+notebook, no voy a tener el codigo actualizado, y voy a intentar editar esa ultima linea desde 
+la notebook, a lo que deberia saltar un error ya que estoy modificando algo que alguien ya 
+modifico anteriormente, entonces en ese momento voy a hacer git pull, y ahi es donde se 
+genera el conflicto, donde voy a tener que elegir con que opcion quedarme. Y asi resolver
+el conflicto.
+
+
+ESTA ES LA LINEA QUE VOY A EDITAR PARA GENERAR EL CONFLICTO.
