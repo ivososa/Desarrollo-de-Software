@@ -8,4 +8,4 @@ genera el conflicto, donde voy a tener que elegir con que opcion quedarme. Y asi
 el conflicto.
 
 
-ESTA ES LA LINEA QUE VOY A EDITAR PARA GENERAR EL CONFLICTO.
+YA MODIFIQUE LA LINEA DESDE LA COMPUTADORA DE ESCRITORIO.
