@@ -1,0 +1,309 @@
+- 28/03 → CSS
+    
+    ## CSS
+    
+    Css es un lenguaje que se usa para estilizar elementos escritos en un lenguaje de marcado como HTML
+    
+    → Css separa el contendio de la representacion visual del sitio. Permite estilizar todo en un archivo diferente, eso hace que el html sea mucho mas limpio y facil de entender, y despues integrarlo con el css que le brinda el estilo
+    
+    ![image.png](attachment:ef047fad-e388-4fcc-8aea-e9c82e47569e:image.png)
+    
+    → Para lograr los detalles finales sobre el HTML, CSS usa de manera selectiva a sus elementos mediante reglas 
+    
+    ## Reglas de Estilo
+    
+    Es un conjunto de instrucciones que define como se debe presentar un elemento html en una pagina web. Especifica que elementos HTML seran afectados por la regla, seguido por un bloque que especifica los estiulos que se aplicaran a esos elementos.
+    
+    <aside>
+    
+    Todos los elementos <p> (Parrafos) seran de color azul (el texto):
+    
+    ```css
+    p {
+     color: blue;
+    }
+    ```
+    
+    </aside>
+    
+    → Estas reglas permiten controlar colores, fuentes, margenes, tamaños y posiciones, entre otros.
+    
+    → La sintaxis de una regla CSS queda representada por
+    
+    ![image.png](attachment:8c9a4e7d-cad8-4dde-af1e-552570468912:image.png)
+    
+    ![image.png](attachment:c1a87777-59ea-4489-afbe-434d9fe495e2:image.png)
+    
+    ## Tipos de Selectores
+    
+    - Selector de Elemento
+        
+        Todos los elementos de un tipo especifico
+        
+        ```css
+        p { color: blue; } 
+        ```
+        
+    - Selector de Clase
+        
+        Elementos con un valor especifico en su atributo class
+        
+        ```css
+        .destacado { font-weight: bold; }
+        Selecciona todos los elementos que tienen la clase
+        destacado y les aplica negrita
+        ```
+        
+    - Selector de ID
+        
+        Selecciona un elemento por su id
+        
+        ```css
+        #encabezado { font-size: 24px; }
+        Selecciona el elemento con el id 'encabezado' y
+        le aplica un tamaño de funete de 24 pixeles
+        ```
+        
+    - Selector de Atributo
+        
+        Selecciona elementos que tienen cierto atributo y opcionalmente un valor especifico para ese atributo
+        
+        ```css
+        input[type="text"] { background-color:
+        #f0f0f0; }
+        Selecciona todos los elementos <input> de tipo 
+        'text' y les aplica un color de fondo gris
+        ```
+        
+    - Selector Universal
+        
+        Selecciona todos los elementos en un documento
+        
+        ```css
+        * { margin: 0; padding: 0; }
+        Aplica margenes y relleno a todos los elementos
+        ```
+        
+    - Selector de Pseudo-Clase
+        
+        Selecciona elementos en relacion de un estado especifo o relacion con otros elementos
+        
+        ```css
+        a:hover { color: red; }
+        Selecciona todos los enlaces <a> cuando el cursor
+        esta sobre ellos y les aplica un color rojo 
+        al texto
+        ```
+        
+    - Selector de Pseudo-Elemento
+        
+        Selecciona partes especificas de un elemento que no estan presentes en el arbol de documentos
+        
+        ```css
+        p::first-line { font-weight: bold; }
+        Selecciona la primera linea de todos los elementos
+        <p> y les aplica negrita
+        ```
+        
+    - Selector Descendiente
+        
+        Selecciona elementos descendientes de otro
+        
+        ```css
+        css\ndiv a {\n color: white;\n}
+        ```
+        
+    - Selector de hijos directos
+        
+        Selecciona los hijos directos de un elemento
+        
+        ```css
+        css\ndiv > p {\n margin: 10px;\n}
+        ```
+        
+    - Selector de hermanos adyacentes
+        
+        Selecciona un elemento que es hermano inmediato de otro
+        
+        ```css
+        css\nh1 + p {\n font-style: italic;\n}
+        ```
+        
+    - Selector de hermanos generales
+        
+        Selecciona todos los elemenrtos hermanos siguientes
+        
+        ```css
+        css\nh1 ~ p {\n color: gray;\n}
+        ```
+        
+    
+    <aside>
+    
+    Cabe mencionar que también es posible combinar elementos hermanos mediante el operador '~' o
+    hermanos adyancentes mediante '+'; o hijos directos mediante A '>' B.
+    
+    </aside>
+    
+    ## Donde escribir reglas CSS?
+    
+    - En un archivo externo con extension .css
+        
+        Se puede dentro de un archivo externo con extension `.css` para eso:
+        
+        1. Se crea un nuevo archivo en la carpeta styles (por convencion) y copiamos ahi las lineas de codigo
+        2. Se abre el archivo html y se pega la siguiente linea dentro de el
+        
+        ```css
+        <link href="styles/style.css" rel="stylesheet" type="text/css">
+        ```
+        
+        1. Se guarda el archivo html y se recarga la pagina
+    - Dentro del <head>
+        
+        Se agrega la etiqueta <style$> dentro del head
+        
+        ```css
+        <head>
+        	<style>
+        		p { color: red; }
+        	</style>
+        </head>
+        ```
+        
+    - En linea
+        
+        Directamente sobre un elemento HTML se agrega el atributo style
+        
+        ```css
+        <p style="color: blue; text-align: center;">
+        Esto solo se aplicaria para ese texto de ese parrafo
+        ```
+        
+    
+    ## Especificidad de selectores
+    
+    La especificidad de un selector va a determinar que estilo predomina cuando dos o mas estilos entran en conflicto. Se calcula mediante el numero de ID, clases y elementos en un selector. 
+    
+    <aside>
+    
+    Un selector mas especifico prevalecera sobre uno menos especifico
+    
+    </aside>
+    
+    → Ahora bien, cuando dos reglas tienen la misma especifidad, la regla que aparece mas tarde en la hoja de estilos se aplicara. Esto se conoce como **ULTIMA REGLA EN CASCADA**
+    
+    Por ejemplo…
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Ejemplo de CSS en cascada</title>
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+     <div id="container">
+     <p class="text">Este es un párrafo de ejemplo.</p>
+     </div>
+    </body>
+    </html>
+    ```
+    
+    En base a ese HTML, se aplica el siguiente CSS…
+    
+    ```css
+    /* Regla más específica */
+    #container p.text {
+     color: blue;
+    }
+    /* Regla menos específica */
+    .text {
+     color: red;
+    }
+    ```
+    
+    <aside>
+    
+    Porque la primera es mas especifica?
+    
+    Porque tiene un ID (#container) y una clase (text) y la segunda solo tiene la clase (text). Entonces ambas reglas se aplican al mismo elemento <p> pero el color definido en la regla mas especifica (blue) prevalecera
+    
+    </aside>
+    
+    Ahora supongamos que el HTML cambia y queda asi…
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Ejemplo de CSS en cascada</title>
+     <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+     <div id="container">
+     <p class="text" style="color: green;">Este es un párrafo de ejemplo.</p>
+     </div>
+    </body>
+    </html>
+    ```
+    
+    Ahora lo que cambio es que hay un estilo en linea al parrafo que lo pinta de verde, eso hace que cambie la jerarquia de la prioridad pasando a ser…
+    
+    1. Estilo en Linea
+    2. Reglas CSS en el documento HTML
+    3. Hoja de estilos externa
+    
+    ## Variables
+    
+    Permiten que un valor se almacene en un lugar y luego se haga referencia en muchos otros lugares.
+    
+    <aside>
+    
+    Las propiedades personalizadas estan sujetas a la cascada y heredan su valor de su padre
+    
+    </aside>
+    
+    <aside>
+    
+    ### Regla `!important`
+    
+    El uso de `!important` es una forma de anular las reglas de cascada normales y forzar que una regla especifica tenga prioridad sobre otras reglas, incluso si es menos especifica o se declara en un lugar diferente en la hoja de estilos. Esto puede ser util en situaciones donde necesitas asegurarte de que un estilo especifico prevalezca
+    
+    </aside>
+    
+    ### Como crear variables en CSS?
+    
+    - Crear una variable
+        
+        ```css
+        --nombre-variable: unValor
+        ```
+        
+    - Usar una variable declarada en un ambito
+        
+        ```css
+        var(--nombre-variable)
+        ```
+        
+    - Definir un valor de respaldo
+        
+        ```css
+        html{
+        --color-defecto: #000
+        }
+        .mi-clase{
+        border-right: 1px solid var(--defecto, black);
+        }
+        ```
+        
+    
+    ## Ejercicio
+    
+    Crear una pagina y darle los estilos necesarios para que el resultado sea lo mas similar a la imagen que se muestra a continuacion
+    
+   Este ejercicio yo lo hice, esta en la clase del viernes 28
