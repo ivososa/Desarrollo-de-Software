@@ -1,0 +1,106 @@
+- 4/04 → BOOTSTRAP
+    
+    
+    ## Maquetacion Web
+    
+    Consiste en dividir el contendio del codigo en secciones logicas y aplicar una estructura coherente y semantica que facilite la comprension y la navegacion por arte de los usuarios y motores de busqueda. Obvio esto tambien aplica para estiulos CSS para controlar el diseño visual de la pagina, como el tamaño y posicionamiente de los elementos, colores, etc
+    
+    La maquetacion web tiene una estructura basica para una pagina web, conformada por diversas estructuras como las siguientes
+    
+    - Estructuras
+        - Cabecera `<header>`
+        - Menu principal`<nav>`
+        - Cuerpo`<bopdy>`
+        - Pie de pagina`<footer>`
+    
+    Y especificamente una estructura de maquetacion web HTML5, se le agregan secciones como las siguientes
+    
+    - Secciones
+        - Titulos y subtitulos`<hgroup>`
+        - Contenido principal del documento`<main>`
+        - Contenido`<article>`
+        - Seccion del documento`<section>`
+        - Menus secundarios`<aside>`
+        - Foto y leyenda`<figure>` y `<figcaption>`
+        - Detalles adicionales y sumario`<details>` y `<sumary>`
+    
+    ## Modelo de Cajas
+    
+    Basicamente todo en css tiene una caja al rededor y es importante saber usarlas. Hay dos tipos de cajas, en bloque y en linea
+    
+    - Caja en bloque
+        - La caja fuerza un salto de linea al llegar al final de la linea
+        - La caja se extiende en la direccion de la linea para llenar todo el espacio disponible que haya en su contenedor. En la mayoria de los casos, esto sisgnifica que al caja sera tan ancha como su contenedor y llenara el 100% del espacio disponible
+        - El relleno, margen y borde mantienen a los otros elementos alejadios de la caja
+    - Caja en Linea
+        - La caja no fuerza ningun salto de linea al llegar al final de la linea
+        - Se aplican relleno, margen y bordes visuales pero no mantienen alejadas otras cajas en linea
+    
+    ## Visualizacion Interna y Externa
+    
+    Las cajas en CSS tienen un tipo de visualizacion externa, que define si se trata de una caja en bloque o en linea. Pero tambien tienen un tipo de visualizacion interna, que determina como se disponen los elementos dentro de esa caja. De forma predeterminada, los elem,entos dentro de una caja se presentan en FLUJO NORMAL, lo que significa que se ciomportan como otros elementos de tipo en bloque o en linea.
+    
+    Se puede cambiar el tipo de visualizacion interna utilizando valores de display, como flex. Y cualquier elemento que sea hijo directo de esta caja pasara a comportarse como un elemento de tipo flex, de acuerdo con las reglkas que se establecen en la especificacion de Flexbox, lo vemos mas adelante.
+    
+    ## Ejemplo
+    
+    El primer caso de la foto es un parrafo que tiene borde añadido con CSS, es en bloque por lo que el parrafo comienza en una linea nueva y se expande por todo el ancho disponible
+    
+    El segundo es una lista, que se presenta usando display: Flex. Es una disposicion flexible para los elementos que estan dentro del contenedor, sin embargo, la lista en si misma es una caja que se comporta en bloque y, como el parrafo, se expande por todo el ancho del contendero y fuerza un salto de linea al llegar al final de la linea
+    
+    El tercer elemento es un parrafo a nivel de bloque, dentro del cual hay dos elemento `<span>` . Estos elementos normalmente serian de tipo inline, sin embargom uno de los elementos tiene una clase de bloque y lo hemops establecido como display: block
+    
+    ![image.png](attachment:b295b6b7-e2ee-4963-bd25-d287621e554c:image.png)
+    
+    ## Partes de una Caja
+    
+    Basicamente tenemos los siguientes elementos
+    
+    - Contenido de la caja `content box`
+        
+        Es el area donde se muestra el contenido, el tamaño se cambia con widgth y height
+        
+    - Relleno`padding box`
+        
+        Es el espacio en blanco alrededor del contenid, es posible controlar el tamaño usando la propiedad padding
+        
+    - Borde`border box`
+        
+        Envuelve el contendio y el de relleno, se puede cambiar el tamaño usando la propiedad border
+        
+    - Margen`margin box`
+        
+        Es la capa mas externa, envuelve el contenido, el relleno y el borde como espacio en blanco entre la caja y otros elementos. Es posible controlar su tamaño usando la propiedad margin
+        
+    - Imagen ilustrativa
+        
+        ![image.png](attachment:58550361-ad7a-4d65-9c9a-0269c699831d:image.png)
+        
+    
+    ## Modelo de cajas CSS estandar
+    
+    En el modelo estandar, se establecen los atributos width y height para una caja, se define el ancho y alto del contenido de la caja. Cualquier area de relleno y biorde se añade a ese ancho y alto para obtener el tamaño total que ocupa la caja. Esto se muestra en la imagen de abajo
+    
+    ```css
+    .box {
+     width: 350px;
+     height: 150px;
+     margin: 10px;
+     padding: 25px;
+     border: 5px solid black;
+    }
+    ```
+    
+    Entonces en realidad el espacio que ocupa va a ser de 410 px (350 + 25 + 25 + 5 + 5); y su altura, de 210 px (150 + 25 + 25 + 5 + 5), porque el área de relleno y el borde se añaden al ancho que se utiliza para el contenido de la caja.
+    
+    ![image.png](attachment:02784fe8-7c58-49c7-b9bf-511c426cb87f:image.png)
+    
+    <aside>
+    
+    El margen no se cuenta para el tamaño real de la caja; por supuesto, afecta al espacio total que
+    la caja ocupa en la página, pero solo al espacio de fuera de la caja. El área de la caja se termina en el
+    borde, no se extiende hasta el margen.
+    
+    </aside>
+    
+    ## Bootstrap
