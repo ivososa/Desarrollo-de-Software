@@ -103,4 +103,39 @@
     
     </aside>
     
+  
     ## Bootstrap
+
+    - Que es?
+        
+        Bootstrap es un framework de desarrollo web de codigo abierto que proporciona una coleccion de herramientas y estilos CSS predefinidos para facilitar la creacion de sitios web modernos y repectivos. Y obvio esto es clave por la gran diversidad de dispositivos en la actualidad.
+        
+        Entonces es importante que los sitios web se adpten y se vean bien en todas las plataformas. El diseño responsivo garantiza esa experiencia consistente y optima.
+        
+        Bootstrap ofrece un sistema de cuadricula flexible y componentes receptivos que se adaptan automaticamente al tamaño de la pantalla del dispositivo. Entonces los desarrolladores ahorran tiempo y esfuerzo en el proceso de desarrollo, ya que el framework proporciona una base solida y consistente para construir sitios web responsivos y atractivos.
+        
+    - Como funciona?
+        
+        Bootstrap esta constituido por una serie de archivos CSS y JavaScript responsables de asignar caracteristicas especificas a los elementos de la pagina. Y el lemento principal se llama bootstrap.css que contiene una definicion para todos los estilos utilizados. Basicamente, la estructura del framework se divide en 
+        
+        - CSS → contiene los achivos necesarios para los estilos
+        - Js → contiene la parte posterior del archivo bootstrap.js, responsable de la ejecucion de aplicaciones de estilo que requierne manipulacion
+    - Cuales son los principales estilos o clases?
+        - Sistema de cuadricula
+        - Tipografia
+        - Botones
+        - FORMULARIOS
+        - Barra de navegacion
+        - Utilidades
+    - Cuales son los componentes?
+        
+        Los componentes bootstrap son elementos y conjuntos de elementos predefinidos que facilitan la construccion de interfces de usuario modernas y receptivas en sitios web. 
+        
+        - Por ejemplo
+            - Navbar, es una barra de navegacion que puede contener enlaces, botones, etc
+            - Cards, son tarjetas, contenedores flexibles que se usan para mostrar contenido como fotos, texto, etc
+            - Buttos, son botones con estilos predefinidos
+            - Forms, son formularios con estilos predefinidos
+            - Carousel
+            - Modal
+            - Dropdown
