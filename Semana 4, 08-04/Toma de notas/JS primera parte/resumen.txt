@@ -1,0 +1,542 @@
+- Apunte 6 → JavaScript parte 1
+    
+    ## Valores y Variables
+    
+    Una variable basicamente es un nombre para un espacio de memoria que puede contener un valor y en JS esos valores pueden ser de distintos tipos
+    
+    - Tipos de datos
+        - `undefined`
+            
+            Es el valor que contiene una variable que no ha sido inicalizada
+            
+        - `string`
+            
+            Representa una cadena de caracteres. Las cadenas son inmutables en JavaScript
+            
+        - `boolean`
+            
+            Reprtesenta un valor logico, puede ser `true` o `false`
+            
+        - `null`
+            
+            Reoresenta un valor nulo o vacio. Una variable puede inicalizarse y definirse como null
+            
+        - `symbol`
+            
+            Es un valor primitivo unico e inmutable. Se puede usar como clave de una propiedad de objeto
+            
+        - `number`
+            
+            Representa numeros de punto flotante de doble presicion de 64 bits
+            
+        - `bigint`
+            
+            Permite almacenar enteros grandes quye exceden los limtes de number. Se especifica on una `n` al final del numero
+            
+        - `object`
+            
+            Es un tipo compuesto formado por asociacion de claves y valores
+            
+            - Por ejemplo
+                
+                ```jsx
+                { nombre: "Ana", edad: 25 }
+                ```
+                
+    - Como podemos ver el tipo de dato de una variable?
+        - `typeof`
+            
+            Sirve para determinar el tipo de datos de una variable
+            
+        - Ejemplo
+            
+            ```jsx
+            let edad = 22;
+            console.log(typeof edad);
+            // number
+            ```
+            
+    
+    ## Tipado Dinamico
+    
+    JS es un lenguaje de tipado dinamico. Como programadores, eso significa que no tenemos que declarar el tipo de datos de la variable cuando la declaramos. El interprete asigna a la variable un tipo durante el tiempo de ejecucion basado en su valor en ese momento.
+    
+    ## Declaracion de Variables
+    
+    - `let`
+        
+        Para declarar una variable se antepone la palabra resaltada `let` al identificador de la variable
+        
+        ```jsx
+        let nombre;
+        ```
+        
+        <aside>
+        
+        Es importante saber que JS es sensible a mayusculas y minusculas, por lo que nombre no es lo mismo que Nombre
+        
+        </aside>
+        
+        - Buena practica
+            
+            Usar `camelCase` para los identificadores, comienza con minuscula pero si tiene mas de una palabra, a partir de la segunda empiezan con mayuscula
+            
+            ```jsx
+            let color;
+            let estadoCivil;
+            let fechaDeAlta;
+            ```
+            
+        - Asignarle un valor a la variable
+            
+            ```jsx
+            nombre = "Juan";
+            let cantidadDisponible = 4;
+            ```
+            
+        - Variables no inicializadas
+            
+            Las vairables declaradas y no inicalizadas aun contienen el valor `undefined` si se utiliza una variable cuyo valor es el mencionado en una operacioon matematica se obtendra como resultado `NaN`  que significa ‘Not a Number’
+            
+            Sin embargo si concanetamos una undefined con otra el resultado sera el de concatenar esa cadena con ‘undefined’
+            
+    - `const`  → Variables de solo lectura
+        
+        ```jsx
+        const PI = 3.141592;
+        const EDAD = 23;
+        ```
+        
+        - Buena practica
+            
+            Para los constantes, usar identificadores completamente en mayusculas
+            
+    - `var`
+        - Buena practica
+            
+            Siempre usamos `let` o `const` antes que `var` 
+            
+        
+        La diferencia con las anteriores, son el `scope` (alcance de la variable) y el `hoisting`
+        
+    
+    ## Comentarios
+    
+    Los comentarios son segmentos de condigo donde JS ignora lo que se escriba. Hay dos variantes
+    
+    ```jsx
+    // Esta línea es un comentario
+    var a; // Esta parte de la línea es un comentario
+    ```
+    
+    ```jsx
+    /* Este es
+     un comentario
+     multilínea
+    */
+    ```
+    
+    ## Cadenas
+    
+    - Se pueden declarar con comillas simples o dobles
+    
+    ```jsx
+    let nombre = "Juan García";
+    let colorPreferido = 'Azul';
+    ```
+    
+    - Incluir caracteres especiales en cadenas
+        
+        Para incluir caracteres especiales por ejemplo las mismas comillas, se usan caracteres especiales…
+        
+        ```jsx
+        const cita = 'Sonó una canción llamada:\n"Dirty old town"';
+        console.log(cita);
+        ```
+        
+        ![image.png](attachment:ed418f54-5c80-48b9-84b5-b6828ad82fb2:image.png)
+        
+    - Concatenar cadenas
+        
+        ```jsx
+        let saludo = "Hola";
+        let nombre = "Silvina";
+        let mensaje = saludo + " " + nombre + "!";
+        ```
+        
+    - Extraer caracteres de una cadena
+        
+        ```jsx
+        console.log("La tercera letra del saludo es'" + saludo[2] + "'");
+        ```
+        
+    - Como extraer la longitud de una cadena → `lenght`
+        
+        ```jsx
+        console.log("la longitud del mensaje es de", mensaje.length, "caracteres");
+        ```
+        
+    - Interpolar variables en las cadenas → `${expresion}`
+        
+        ```jsx
+        let valorA = 10;
+        let valorB = 5;
+        console.log(
+         `El resultado de la suma de ${valorA} y ${valorB} es ${valorA + valorB}`
+        );
+        ```
+        
+    
+    ## Estructuras Condicionales
+    
+    - `if`
+        - Estructura general
+            
+            ```jsx
+            if (<condición>) {
+             <sentencias que se ejecutan si la condición es verdadera>
+            }
+            ```
+            
+        - Ejemplo
+            
+            ```jsx
+            if (monto > 5000) {
+             console.log("La operación requiere autorización especial");
+            }
+            ```
+            
+        - Estructua general incluyendo falso
+            
+            ```jsx
+            if (monto > 5000) {
+             console.log("La operación requiere autorización especial");
+            } else {
+             console.log("La operación ha sido autorizada");
+            }
+            ```
+            
+    - `swithc`
+        
+        Basicamente es como un if pero si pasa tal cosa que haga esto, si pasa otra esto, si otra esto, y si no pasa nada esto…
+        
+        - Estrcutura
+            
+            ```jsx
+            switch (<expresion>) {
+             case <caso1>:
+             <sentencias que se ejecutan para el caso1>
+             break;
+             case <caso2>:
+             <sentencias que se ejecutan para el caso2>
+             break;
+             ...
+             // Otros casos
+             default:
+             <sentencias que se ejecutan si ninguno de los casos anteriores se ejecutó>
+            }
+            ```
+            
+        - Ejemplo
+            
+            ```jsx
+            switch (color) {
+             case "rojo":
+             console.log("#FF0000");
+             break;
+             case "azul":
+             console.log("#0000F");
+             break;
+             case "verde":
+             console.log("#00FF00");
+             break;
+             default:
+             console.log("#000000");
+            }
+            ```
+            
+    - `?`
+        
+        Funciona como un if, else
+        
+        - Estructura
+            
+            ```jsx
+            <condición> ? <expresión 1> : <expresión 2>
+            ```
+            
+        - Ejemplo
+            
+            ```jsx
+            console.log(
+             "La operación",
+             monto > 5000 ? "requiere autorización especial" : "está autorizada"
+            );
+            ```
+            
+    
+    ## Estructuras Iterativas
+    
+    - `for`
+        
+        Se repite hasta que la condicion especificada en su declaracion sea falsa
+        
+        - Estructura
+            
+            ```jsx
+            for (<inicialización>; <condición>; <incremento>){
+             instrucciones
+             ...
+            }
+            ```
+            
+            1. Inicialmente s eejecuta la expresion de inicializacion, habitualmente s enincluyen en esta la declaracion e inicalizacion de uno o mas contadores
+            2. Luego se evalua la condicion, si esta es verdadera se ejecutan las instrucciones en el cuerpo del ciclo y si la expreion no se especifica, se considera siempre verdadera y el ciclo se ejecutrara indefinidamente
+        - Ejemplo
+            
+            ```jsx
+            for (let i = 0; i < 10; i++) {
+             console.log(i + 1);
+            }
+            ```
+            
+    - `while`
+        - Estructura
+            
+            ```jsx
+            while (<condición>){
+             instrucciones
+             ...
+            }
+            ```
+            
+            Las instrucciones del bloque se repiten mientras la condicion sea verdadera
+            
+        - Ejemplo
+            
+            ```jsx
+            let i = 0;
+            while (i < 10){
+             console.log(i+1);
+             i++;
+            }
+            ```
+            
+    - `do while`
+        
+        La condicion se evalua al final del buycle. Es decir que si las instrucciones se ejecutaran al menos una vez hasta que se evalue la condicion
+        
+        - Estructura
+            
+            ```jsx
+            do {
+             instrucciones
+             ...
+            } while (<condición>)
+            ```
+            
+        - Ejemplo
+            
+            ```jsx
+            let i = 0;
+            do {
+             i++;
+             console.log(i);
+            } while (i < 10);
+            ```
+            
+    - `break`
+        
+        Permite interrumpir la ejecucion de un bucle o una instruccion switch y continuar con la siguiente instruccion en el programa
+        
+        En el siguiente ejemplo se muestra en consola todas las letras de una cadena ahsta que aparece la letra l
+        
+        ```jsx
+        let color = "violeta";
+        for (let i = 0; i < color.length; i++) {
+         console.log(color[i]);
+         if (color[i] === "l") {
+         break;
+         }
+        }
+        ```
+        
+    - `continue`
+        
+        Permite reinicar un bucle. Cuando se ejecuta la instruccion continue funaliza la iteracion actual del bucle y sigue con la proxima iteracion
+        
+        En este ejemplo usamos continue para mostrtar todos los caracteresque componen una cadena exeptuando la letra l
+        
+        ```jsx
+        let color = "violeta";
+        for (let i = 0; i < color.length; i++) {
+         if (color[i] === "l") {
+         continue;
+         }
+         console.log(color[i]);
+        }
+        ```
+        
+    
+    ## Operadores
+    
+    - Aritmeticos
+        
+        ![image.png](attachment:6ba94eb3-3ade-47bf-9fd7-e7d3e5c360c3:image.png)
+        
+    - De incremento y decremento
+        
+        ![image.png](attachment:16a21d03-1d4c-4755-8ca0-49bcf7ba0f26:image.png)
+        
+        Se pueden apicar a la izquierda o a la derecha del valor que se incrementara o decrementara, siendo que:
+        
+        - Izquierda → Se incrementara o decrementara el valor ANTES de retornarlo
+        - Derecha → Se incrementara o decrementara el valor DESPUES de retornarlo
+        
+        ```jsx
+        let cantidad = 34;
+        console.log(cantidad++); //muestra 34
+        console.log(cantidad); // muestra 35
+        console.log(++cantidad); // muestra 36
+        ```
+        
+    - De asignacion
+        
+        ![image.png](attachment:f9231e36-1ad3-4d20-9a54-a6f73cce9c1e:image.png)
+        
+    - De comparacion
+        
+        ![image.png](attachment:ea45c187-0a70-4c2c-9228-efd3aff1d203:image.png)
+        
+        - Buena practica
+            
+            Nunca usar estos `==` `!=` , si no que siempre usar los estrictos, los que usan 3 caracteres
+            
+    - Logicos
+        
+        ![image.png](attachment:71a2e6b5-f475-4405-9985-72fb57a90b24:image.png)
+        
+    
+    ## Conversion y Coercion de tipos
+    
+    - Introduccion
+        
+        Ya que JS es de tipado dinamico, es una caractersitca que hace que el tipo de datos de una variable se define en ejecucion, por lo tanto es posible usar variables de un tipo en operaciones que esperan otro tipo o combinar distintos tipos de datos en operaciones que esperan variables del mismo tipo. 
+        
+        Pero JS nos permite la coercion de tipos, que realiza una conversion de tipos de forma implicita en ese contexto para que estas operaciones sean posibles.
+        
+    - Por ejemplo
+        
+        ```jsx
+        const a = "3";
+        const b = 9;
+        console.log(a + b);
+        ```
+        
+        Esperamos el numero 12 pero el resultado es un string 39, porque? porque js convirtio de forma implicita la variable b a string para poder usar el operador + como concatenacion, en este caso es sencillo ver como funciono el problema pero a veces se complica mas, entonces lo que vamos a hacer es forzar la conversion para que sume como nosotros queremos
+        
+        ```jsx
+        const a = "3";
+        const b = 9;
+        console.log(Number(a) + b);
+        
+        ```
+        
+    - Conversion a numero
+        
+        `Number(valor)`
+        
+    - Conversion a string
+        
+        `string(valor)` 
+        
+        `valor.toString();`
+        
+    - Conversion a Boolean
+        
+        `Boolean(valor);` 
+        
+        En estge caso la regla de conversion estara dado por los valores que evaluan a falso (llamados falsy de dificil traduccion), el resto de los valores son truthy, evaluan a true
+        
+        - Valores falsy
+            - false
+            - 0
+            - -0
+            - 0n
+            - cadena vacia
+            - null
+            - undefined
+            - NaN
+    
+    ## Funciones
+    
+    - Que es?
+        
+        Es un subprograma, un conjunto de instrucciones que pueden ser reutilizadas para realizar una tarea especifica. En JS las funciones son objetos y como tales pueden ser entre otras cosas asignados a una variable. Se distinguen de otros objetos porque pueden ser invocadas
+        
+    - Como definir una funcion
+        
+        Definir una funcioin es el mecanismo para crear la funcion y darle un nombre. La funcion no se ejecuta cuando se crea sino cuando es invocada. Hay 2 alternativas para definir una funcion: declaracion de funcion y expresion de funcion
+        
+        - Declaracion de funcion
+            
+            Declaramos una funcion para poder usarla cuandos ea necesaria. La sintaxis es la palabra function seguida de
+            
+            - El nombre de la funcion
+            - una lista de parametros entre parentesis y separados por coma
+            - el cuerpo de la funcion entre llaves
+            
+            ```jsx
+            function holaMundo() {
+             console.log("Hola mundo");
+            }
+            ```
+            
+            ```jsx
+            function saludo(nombre) {
+             console.log("Hola", nombre);
+            }
+            ```
+            
+            ```jsx
+            function sumar(a, b) {
+             return a + b;
+            }
+            ```
+            
+        - Expresion de funcion
+            
+            En la expresiion de funcion asignamos la funcion a una variable o constante y no necesitamos dar un nombre a la funcion, es decir, esta puede ser anonima
+            
+            ```jsx
+            const holaMundo = function () {
+             console.log("Hola mundo");
+            };
+            ```
+            
+            ```jsx
+            let saludo = function (nombre) {
+             console.log("Hola", nombre);
+            };
+            ```
+            
+            ```jsx
+            let sumar = function (a, b) {
+             return a + b;
+            };
+            ```
+            
+        - Cual es la diferencia?
+            
+            La declaracion de funcion es elevada mientras que la expresion de funcion no lo es. Esto significa que se puede invocar una funcion definida  mediante declaracion de funcion antes de que sea definida, pero no podemos hacer eso con una expresion de funcion
+            
+    - Invocar funciones
+        
+        Cuando se declara una funcion no se ejecuta, necesitamos invocarla explicitamente, invocamos unba funcion como funcion o como metodo mediante una expresion de funcion seguido de un parenteiss que abre, una lista dde ceroi o mas argumentos y un parentesis que cierra
+        
+        ```jsx
+        const suma = function (a, b) {
+         return a + b;
+        };
+        let resultado = suma(4, 6);
+        ```
