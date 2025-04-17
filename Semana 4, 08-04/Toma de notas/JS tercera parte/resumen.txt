@@ -1,0 +1,132 @@
+- Apunte 8 → JavaScript parte 3
+    
+    ## DOM
+    
+    Una pagina HTML est formada por multiples etiquetas HTML, anidadas una adentro de otra, formando un arbol de etiquetas relacionadas entre si, que se denomina arbol DOM
+    
+    ![Captura de pantalla 2025-04-17 a la(s) 7.08.01 p. m..png](attachment:ba542eac-08a8-4318-9097-427342aba8e5:Captura_de_pantalla_2025-04-17_a_la(s)_7.08.01_p._m..png)
+    
+    - Como accceder al DOM?
+        
+        En javascript la forma de acceder al DOM es a traves de un objeto llamado document, que representa el arbol DOM de la pagina o, mas correctamente, la pagina de la pestaña del navegador donde nos encontramos. En su interior pueden existir varios tipos de elementos, pero principalmente seran ELEMENT o NODE
+        
+        ELEMENT: no es más que la representación genérica de una etiqueta: HTMLElement.
+        NODE: es una unidad más básica, la cuál puede ser ELEMENT o un nodo de texto. Todos los elementos
+        HTML, dependiendo del elemento que sean, tendrán un tipo de dato específico.
+        
+    - Establecer referencias a objetos
+        
+        El DOM define la manera en que objetos y elementos se relacionan entre si en el navegador y en el documento. En javascript, cada objeto tiene un nombrem el cual es exclusivo y unico. Cuando existe mas de un objeto del mismo tipo en un documento web, estos se organizan en un vector. Es posible asignarle una identificacion a un objeto, y luego usarlo para hacer referencia a ese, por ejemplo…
+        
+        - En documento HTML
+            
+            ```sql
+            <div id="Idiomas">
+            <li>Español</li>
+            <li>Ingles</li>
+            <li>Frances</li>
+            </div>
+            //para hacer refernecia a este elemento se usa la
+            // funcion getElementByiD
+            ```
+            
+        - En Javascript
+            
+            ```sql
+            document.getElementById("Idiomas")
+            ```
+            
+            Y se puede realizar alguna operacion sobre el mismo, como por ejemplo agregar un nuevo elemento
+            
+            ```sql
+            document.getElementById("Idiomas").innerHTML += "<li>Portugues</li>"
+            ```
+            
+    - Eventos
+        
+        En la creacion de paginas web los eventos representan la interaccion del usuario con la computadora. Cuando alguno de estos eventos ocurre, como por ejemplo la presion de algun boton del raton, es deseable que la computradora responda de alguna manera. Una manera de añadir eventos en el DOM utilizando javascript es
+        
+        ```sql
+        <element onevent="script">....</element>
+        ```
+        
+        - Por ejemplo
+            
+            ```sql
+            <div id="midivision" onClick="javascript:miFuncion('bar');">
+            Aquí va otro texto
+            </div>
+            ```
+            
+        
+        Otra forma de manipular eventos en javascript, al crear paginas web, es tratandolos como propiedades de los elementos que forman la pagina, por ejemplo
+        
+        ```sql
+        objeto.evento = funcion;
+        document.getElementById("midivision").onclick = hazAlgo;
+        ```
+        
+    - Oyente de eventos
+        
+        Ciertos objetos pueden estar pendientes de ciertos eventos. Para hacer esto el objeto añade un oyente de
+        eventos con la función addEventListener. Cuando el evento ocurra, alguna función determinada se lleva a
+        cabo. En este proceso se indica en qué momento la función se lleva a cabo, ya sea en la etapa de captura o en
+        la etapa de burbujeo. Este momento se indica con la palabra true si debe ocurrir en la etapa de captura o
+        false si debe ocurrir en la etapa de burbujeo. En JavaScript se escribe de la siguiente manera:
+        
+        ```sql
+        objeto.addEventListener(evento, funcion, momento);
+        document.getElementById("mydivision").addEventListener("click", hazAlgo, false);
+        ```
+        
+    
+    ## SPA
+    
+    Es una web que todo su contenido carga una zola vez, es decir, el navegador descarga un solo archivo html con todos los recursos y dependencias que necesite para funcionar
+    
+    Una vez que carga todo el contenido, la navegacion suele ser rapida y fluido porque el contenido ha sido cargado y solo se necesita intercambiar contenido a traves de las interacciones con el usuario
+    
+    - Varias vistas, no varias paginas
+        
+        El hecho de tener una sola página, no implica no tener tener varias vistas, es decir los diferentes apartados
+        que podría tener el sitio Web. A ojos del usuario es como si tuviese varias páginas que cargan muy rápido,
+        pero en realidad son vistas en la misma página.
+        
+        - Si todo esta en la misma pagina, no cambia la url?
+            
+            NO, es mas, lo mas normal es que vaya cambiando segun nos movemos entre vistas. Pero la clave es que en realidad no estas cargando una pagina, tan solo sustituyendo el contenido de la misma, y entonces porque cambiar las url?
+            
+    - Rutas en las SPA
+        
+        Por funcionalidad no es necesario que cambiase la url pero es una cuestion de guardar el histrial de las paginas que el usuario va visitando, lo que podria permitir al usuario regresar o avanzar vistas a traves de botones.
+        
+        Por otro lado el usuario va a llegar a alguna vista a la que quiera acceder despues mediante la url de manera directa y eso no se podria si no se cambiara la url
+        
+        y COMO cambia la url? gracias al uso del hash
+        
+    - Hash URL
+        
+        El final de una URL puede contener una palabra separada por un símbolo de almohadilla (#). Esto es lo que se
+        conoce como elemento hash de la URL y permite posicionarse dentro de una parte determinada de la
+        página. Esto lo conseguimos de forma sencilla mediante HTML.
+        
+        En javascript, podemos acceder al hash de la URL con el objeto **location** el cual hace referencia a la url que maneja el navegador, este objeto facilita acceder al hash, especificamente la propiedad `location.hash` 
+        
+        ```jsx
+        console.log(location.hash)
+        ```
+        
+    - En que lenguake de programacion se hacen las SPA?
+        
+        Esto es fácil, las SPA siempre están hechas con JavaScript. No hay otro lenguaje, ya que este tipo de webs se
+        ejecutan en el lado del cliente, es decir, en el navegador, y ahí solo se ejecuta JavaScript.
+        
+        - Pero si el codifo de una SPA es 100% front, que pasa con el back?
+            
+            El back es 100% INDEPENDIENTE. De hecho a la SPA le importa poco en que lenguaje esta programado su backend o que reglas, patrones, estructuras o tecnicas use internamente, mientras este le proporcione los datos en una API expuesta generalmente en formato JSON es todo lo que la SPA necesita de un backend
+            
+    - frameworks
+        
+        Angular, React, Ember.js, Polymer, etc, son ejemplos de frameworks y librerías que nos permiten construir
+        SPAs de manera eficiente. En las semanas siguientes puntualmente abordaremos el uso de React para
+        construir los prácticos de la asignatura.
