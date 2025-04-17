@@ -1,0 +1,464 @@
+- Apunte 7 → JavaScript parte 2
+    
+    ## Objeto
+    
+    Un objeto es una coleccion de propiedades. 
+    
+    → Y una propiedad es una asociacion entre un nombre y un valor. El valor de una propiedad puede ser una variable o una funcion. En el caso que la propiedad tiene por valor una funcion, hablamos de **metodo**.
+    
+    ## Propiedades
+    
+    Un objeto de js tiene propiedades asociadas a el. Una propiedad de un objeto se puede pensar como una variable adjunta a dicho objeto. Las propiedades de un objeto definen sus caractersticas y se pueden acceder mediante.
+    
+    - Notacion de un punto
+        
+        ```sql
+        objeto.propiedad
+        ```
+        
+    - Notacion de corchetes
+        
+        ```sql
+        objeto['propiedad']
+        ```
+        
+    - Una vez definido el objeto es posible crear o agregar nuevas propiedades
+        
+        ```sql
+        persona.pais = 'Argentina'
+        ```
+        
+    - Las propiedades no asignadas de un objeto son undefined
+        
+        ```sql
+        persona.fechaNacimiento; // undefined
+        ```
+        
+    
+    ## Creacion de objetos
+    
+    - Con notacion literal
+        
+        Se utilizan llaves, por ejemplo
+        
+        ```sql
+         const juan = {
+         nombre: 'Juan',
+         correo: 'juan@gmail.com',
+         profesion: 'Comerciante',
+         fechaNacimiento: new Date(1994, 9, 1),
+         saludar: function () {
+         console.log('Hola soy ' + this.nombre);
+         }
+         };
+        ```
+        
+    - Con `newObject`
+        
+        ```sql
+        const persona = new Object();
+         persona.nombre = 'Juan';
+         persona.correo = 'juan@gmail.com';
+         persona.profesion = 'Comerciante';
+         persona.saludar = function(){
+         console.log('Hola soy ' + this.nombre)
+         };
+        ```
+        
+    - Con funcion constructora
+        
+        Se necesitan dos pasos, primero definir el tipo de objeto escribiendo una funcion constructora. Segundo crear una instancia del objeto con el operador `new` 
+        
+        Para definir el tipo de objeto, se crea una funcion para el objeto que especifique su nombre, propiedades y metodos.
+        
+        ```sql
+        function Persona(nombre, correo, profesion, fechaNacimiento) {
+         this.nombre = nombre;
+         this.correo = correo;
+         this.profesion = profesion;
+         this.fechaNacimiento = fechaNacimiento;
+         this.saludar = function () {
+         console.log('Hola soy ' + this.nombre);
+         };
+         this.edad = function () {
+         const hoy = new Date();
+         return hoy.getFullYear() - this.fechaNacimiento.getFullYear();
+         };
+        }
+        ```
+        
+    - Prototype
+        
+        ## Prototype
+        
+        Js es un lenguaje basado en prototipos, en donde todos los objetos terminan heredando de Object y prototype nos permite agregar nuevos metodos a los constructores de los nuevos tipos de objeto que hayamos definido
+        
+        - Por ejemplo
+            
+            ```sql
+            nodejs ./js/objetos-prototype.js #ver ejemplo con protopye
+            ```
+            
+            Al usar prototype afectamos a todas las intancias del tipo de objeto en cuestion. En el ejemplo de Persona vemos que al manipular el resultado de la funcion esMayorDeEdad este se modifica para todas las instancias
+            
+            ```sql
+            Persona.prototype.esMayorDeEdad = function () {
+             // if (this.edad() > 18)
+             // return true;
+             // return false
+             return this.edad() > 18;
+            };
+            ```
+            
+            Si en lugar de modificar Persona, modificamos una instancia por ejemplo carla
+            
+            ```sql
+            carla.__proto__.esMayorDeEdad = function () {
+             return false;
+            };
+            ```
+            
+            Vemos que tambien afecta a mario. Considerar que para acceder a prototype por medio de la instancia, es necesario accederlo a traves de la propiedad `__proto__`
+            
+    - `class`
+        
+        Con ECMAscript se puede usar la palabra `class`  para definir un tipo de objeto. Esta sintaxis implicitamente define objetos por medio de funciones constructoas, ya que el concepto de clases no existe en JS y la creacion de objetos se termina haciendo a traves de prototype. Lo que realmente nos facilita ECMA es una sintaxis amigable.
+        
+        - Ejemplo
+            
+            ```sql
+            class Persona {
+             constructor(nombre, correo, profesion, fechaNacimiento) {
+             this.nombre = nombre;
+             this.correo = correo;
+             this.profesion = profesion;
+             this.fechaNacimiento = fechaNacimiento;
+             }
+             saludar() {
+             console.log('Hola soy ' + this.nombre);
+             }
+             edad() {
+             const hoy = new Date();
+             return hoy.getFullYear() - this.fechaNacimiento.getFullYear();
+             }
+            }
+            ```
+            
+            ```sql
+            nodejs js/objetos-es6.js #ver ejemplo con es6
+            ```
+            
+    
+    ## Resumen de las formas de creacion de objetos
+    
+    - Notacion literal
+        
+        ```sql
+        const obj = { ... }
+        ```
+        
+    - `new Objetc()`
+        
+        ```sql
+        const obj = new Object()
+        ```
+        
+    - Funcion constructora
+        - Permite crear multiples instancias, requiere `new`
+        
+        ```sql
+        function Persona(...) {
+        this.x = ... }
+        ```
+        
+    - Prototype + constructor
+        - Petmite definir metodos comunes compartidos por todas las instancias
+        
+        ```sql
+        Persona.prototype.saludar =
+        ...
+        ```
+        
+    - Clase (ES6)
+        
+        ```sql
+        class Persona {
+        constructor(...) { ... } }
+        ```
+        
+    
+    ## Funciones Flecha
+    
+    - Repaso de funciones
+        
+        Teniendo en cuenta lo visto en la seccion anterior, podemos crear ejemplos para nuestro dominnio de personas, por ejemplo la funcion `obtenerPersonaMasGrande` que busca la persona mas grande entre 3
+        
+        ```sql
+        obtenerPersonaMasGrande = function (p1, p2, p3) {
+         let mayor = p1;
+         if (p2.edad() > p1.edad())
+         mayor = p2;
+         else {
+         if (p3.edad() > p1.edad())
+         mayor = p3;
+         }
+         console.log('Soy una function/metodo común. Atte esMayorDeEdad');
+         return mayor;
+        };
+        ```
+        
+        → Podemos reescribirla como una `arrow functrion` 
+        
+        ```sql
+        obtenerPersonaMasGrandeArrow = (p1, p2, p3) => {
+         let mayor = p1;
+         if (p2.edad() > p1.edad())
+         mayor = p2;
+         else {
+         if (p3.edad() > p1.edad())
+         mayor = p3;
+         }
+         console.log('Soy una arrow function. Atte esMayorDeEdad');
+         return mayor;
+        };
+        ```
+        
+    - `arrow function`
+        
+        Basicamente son otra forma de escribir funciones con una sintaxis mas simplificada, lo que normalmente conocemos como expresadas
+        
+    - Diferencias con las funciones declaradas
+        
+        No hay que usar arrow function cuando se está declarando metodos dentro de una clase o definición
+        de objetos.
+        No se puede usar arrow functions dentro de constructores.
+        Si tienen solo una línea es posible omitir las {} y escribirla en una sola línea
+        Si tienen un solo parámetro es posible omitir los ()
+        Mediante this tienen acceso al contexto de su declaración
+        Tienen un return implícito
+        Son utilizadas dentro los iteradores de conjuntos
+        
+    - this
+        
+        Las `arrow functions` no tienen su propio this. En lugar de eso, capturan el valor de this del contexto en el que fueron definidas. Es decir, heredan this del contexto lexico.
+        
+        - Ejemplo
+            
+            ```sql
+            onst persona = {
+             nombre: "Juan",
+             saludar: function () {
+             console.log("Hola, soy " + this.nombre);
+             },
+            };
+            persona.saludar(); // Hola, soy Juan
+            ```
+            
+            En este caso, this apunta al objeto persona, como se espera.
+            
+            ```sql
+            persona = {
+             nombre: "Juan",
+             saludar: () => {
+             console.log("Hola, soy " + this.nombre);
+             },
+            };
+            persona.saludar(); // Hola, soy undefined
+            ```
+            
+            En cambio en estre otro caso this no se refiere a persona, si no al contexto externo, por ejemplo windows en el navegador o global en Node.js
+            
+    - Cuando usar y cuando no?
+        - Cuando son funciones dentro de metodos
+            
+            NO, porque no tienen su propio this
+            
+        - Cuando son metodos de clase
+            
+            NO, porque podes romper la referencia a la instancia
+            
+        - Cuando son callbacks, iteradores
+            
+            SI, porque es mas conciso, no cambia el contexto de this
+            
+        - Cuando son funciones puras o utilitarias
+            
+            SI, porque no necesitas this
+            
+    
+    ## Arrays o Vectores
+    
+    Un arreglo es un conjunto de datos ordenados por posiciones, asociadas en una variable. Los valores se delimitan por corchetes
+    
+    ![Captura de pantalla 2025-04-17 a la(s) 5.59.35 p. m..png](attachment:aee9764f-41a2-43ad-a7ac-b4a403414a17:Captura_de_pantalla_2025-04-17_a_la(s)_5.59.35_p._m..png)
+    
+    - Ejemplos
+        
+        ```sql
+        const array = ['hola', 3.14, true];
+        console.log('array:', array); // array: [ 'hola', 3.14, true ]
+        ```
+        
+        ```sql
+        const array = new Array(3); // Crea tres posiciones, donde cada elemento tiene
+        como valor por defecto `undefined`
+        console.log('array con elementos undefine', array); // array con elementos
+        undefine [ <3 empty items> ]
+        ```
+        
+        ```sql
+        const array = new Array('hola', 3.14, true);
+        console.log('array:', array); // array: [ 'hola', 3.14, true ]
+        ```
+        
+    - Formas de crear vectores
+        - Literal
+            
+            ```sql
+            const numeros = [1, 2, 3]; 
+            ```
+            
+        - Constructor array
+            
+            ```sql
+            const vacio = new Array(3);
+            ```
+            
+        - Constructor con datos
+            
+            ```sql
+            const mezcla = new
+            Array('a', true);
+            ```
+            
+    - Acceder a los elementos
+        
+        ```sql
+        const frutas = ["manzana", "banana", "naranja"];
+        console.log(frutas[0]); // manzana
+        console.log(frutas[2]); // naranja
+        console.log(frutas[99]); // undefined
+        ```
+        
+    - Iterar arrays
+        
+        ```sql
+        const numeros = [1, 35, 6, 54, 13, 3, 24]; // dar nombres representantivos
+        ```
+        
+        - Iterar todos los elementos
+            
+            ```sql
+            numeros.forEach(elemento => console.log(elemento));
+            ```
+            
+        - Contar cuantos cumplen una condicion
+            
+            ```sql
+            const mayoresA10 = numeros.filter((e) => e > 10);
+            console.log(`Mayores a 10`, mayoresA10);
+            console.log(`Numeros`, numeros);
+            console.log(`La cantidad de elementos mayores a 10 son ${mayoresA10.length}`);
+            ```
+            
+        - Transformar datos
+            
+            ```sql
+            const numerosX10 = numeros.map((e) => e * 10);
+            console.log(`elementos mapeados`, numerosX10);
+            console.log(`Numeros`, numeros);
+            console.log(`La cantidad de elementos mayores a 10 son ${numerosX10.length}`);
+            ```
+            
+        
+    
+    ## Modulos
+    
+    - Introduccion
+        
+        Los modulos permiten organizar el codigo en archivos separados, cada uno con un proposito concreto, como:
+        
+        - Tipos de datos (clases, estructuras)
+        - Logica de negocio (funciones que operan sobre los datos)
+        - Datos iniciales o de prueba
+        
+        Para dividir el codigo segun cierta funcionalidad, javascript nos proporciona la capacidad de separar en `modulos` el codigo, por ejemplo la carpeta modulos tiene la siguiente estructura
+        
+        - Estructura de modulos
+            
+            ![Captura de pantalla 2025-04-17 a la(s) 6.30.12 p. m..png](attachment:e9399808-8212-4ade-a77e-a6543f573c6d:Captura_de_pantalla_2025-04-17_a_la(s)_6.30.12_p._m..png)
+            
+            modulos
+            
+            - acceso-a-datos
+                - personas.datos.js
+            - entidades
+                - persona.js
+            - logica-de-negocio
+                - personas.servicio.js
+            - index.js
+            - package.json
+        
+        <aside>
+        <img src="/icons/arrow-right_blue.svg" alt="/icons/arrow-right_blue.svg" width="40px" />
+        
+        - En acceso-a-datos se encuentran los archivos con los datos.
+        - En entidades tiene la definición de los tipos de datos usados.
+        - En logica-de-negocio tiene las funciones necesarias para cumplir con los requerimientos pedidos.
+        </aside>
+        
+    - Que es
+        
+        Un modulo en javascript es simplemente un archivo que puede exportar o importar contenido (funciones, clases, variables, etc)
+        
+        - Ejemplo
+            
+            ```sql
+            // persona.js
+            export class Persona {
+             constructor(nombre) {
+             this.nombre = nombre;
+             }
+             saludar() {
+             console.log("Hola, soy " + this.nombre);
+             }
+            }
+            ```
+            
+            ```sql
+            // main.js
+            import { Persona } from './persona.js';
+            const juan = new Persona("Juan");
+            juan.saludar(); // Hola, soy Juan
+            ```
+            
+    - `package.json`
+        
+        Hay un archivo llamado `package.json` que se genera automaticamente con el comando `npm init` que contiene una estrcutura definida muy concreta, y a traves de sus campos se puede guardar y recuprar informacion muy util. Lo vamos a ver mas adelante
+        
+    - Exportar variables
+        
+        para poder exportar variables, funciones, tipos de datos, es importante usar la sentencia `export` en el archivo donde se declara lo que se desea exportar. Por ejemplo se exporta la variable `personasServicio` de `persona.servicio.js` 
+        
+        ```sql
+        const personasServicio = {
+         mayoresDeEdad: mayoresDeEdad,
+         obtenerPersonaMasGrande: obtenerPersonaMasGrande,
+         personasXProfesion: personasXProfesion,
+         obtenerProfesiones: _obtenerProfesiones
+        };
+        export { personasServicio };
+        ```
+        
+        Y se lo importa en index.js:
+        
+        ```sql
+        import { personas } from './acceso-a-datos/personas.datos.js';
+        import { personasServicio } from './logica-de-negocio/personas.servicio.js'
+        ```
+        
+        Y para usarla:
+        
+        ```sql
+        const mayores = personasServicio.mayoresDeEdad(personas);
+        ```
