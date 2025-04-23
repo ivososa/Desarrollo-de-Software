@@ -1,0 +1,96 @@
+- Toma de nota de la clase
+    
+    ## Programacion sincrona
+    
+    Significa que es paso a paso, es secuencial, por lo que si una de las instrucciones se bloquea debido a una espera temporal, bloquea a todas las demas instrucciones debido a esa espera, esto no es la mejor opcion porque produce que el usuario se quede esperando por cupa de ese proceso demorado. En javascript existe la programacion ASINCRONA, que nos permite ejecutar las lineas de codigo sin la necesidad de seguir un orden secuencial por lo que si una tarea demora tiempo como el ejemplo anterior, ese proceso se ejecuta en segundo plano mientras se sigue generando otras acciones y cuando termine ese proceso le avisa a javascript que ya finalizo por lo que puede tirar un mensaje o lo que sea.
+    
+    <aside>
+    <img src="/icons/arrow-right_blue.svg" alt="/icons/arrow-right_blue.svg" width="40px" />
+    
+    Es importante contar con la visibilidad de como se ejecuta nuestro codigo para posteriorimente, cuando tengamos errores, podamos depurar el codigo para ver el paso a paso de la ejecucion y detectar ese error.
+    
+    ![Captura de pantalla 2025-04-22 a la(s) 3.31.29 p. m..png](attachment:e05e957a-dcf7-4262-a854-5d19436dee43:Captura_de_pantalla_2025-04-22_a_la(s)_3.31.29_p._m..png)
+    
+    </aside>
+    
+    <aside>
+    <img src="/icons/arrow-right_blue.svg" alt="/icons/arrow-right_blue.svg" width="40px" />
+    
+    Basicamente la programacion asincronica consiste en decirle a javascript hace esto a futuro, pero hacelo, ahora bien la siguiente linea ejecutala ya. El asincronismo representa un mejor rendimiento, elimina el bloqueo y las esperas innecesarias del usuario
+    
+    </aside>
+    
+    ## Formas de trabajar asincronicamente
+    
+    <aside>
+    <img src="/icons/arrow-right_blue.svg" alt="/icons/arrow-right_blue.svg" width="40px" />
+    
+    Importante entender que en javascript no es todo asincronico, hay partes que se ejecutan secuencial y otras en asincronicas.
+    
+    </aside>
+    
+    - Callbacks
+        
+        ```jsx
+        function leerArchivo(callback) {
+            // Simulando lectura de archivo
+            setTimeout(() => {
+            const resultado = 'Contenido del archivo';
+            callback(resultado);
+            }, 1000);
+        }
+        leerArchivo((contenido) => {
+            console.log(contenido);});
+        ```
+        
+    - Promesas
+        
+        ```jsx
+        function leerArchivo() {
+            return new Promise((resolve, reject) => {
+            // Simulando lectura de archivo
+                setTimeout(() => {
+                    const resultado = 'Contenido del archivo';
+                    resolve(resultado);
+                }, 1000);
+            });
+        }
+        leerArchivo()
+            .then((contenido) => {
+            console.log(contenido);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        ```
+        
+    - Fetch
+        
+        ```jsx
+        fetch('https://restcountries.com/v3.1/alpha/arg')
+         .then(response => response.json())
+         .then(data => {
+         console.log(data);
+         })
+         .catch(error => {
+         console.error('Error:', error);
+         });
+        ```
+        
+    - Async Await
+        
+        ```jsx
+        async function fetchData(url) {
+         try {
+         const response = await fetch(url);
+         if (!response.ok) {
+         throw new Error(`Error en la solicitud: ${response.status}`);
+         }
+         const data = await response.json();
+         console.log('Datos recibidos:', data);
+         } catch (error) {
+         console.error('Error al realizar la solicitud:', error);
+         }
+        }
+        fetchData('https://pokeapi.co/api/v2/pokemon/');
+        ```
