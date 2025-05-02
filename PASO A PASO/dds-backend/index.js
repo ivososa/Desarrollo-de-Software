@@ -29,6 +29,11 @@ app.use(
 );
 
 
+const seguridadRouter = require("./routes/seguridad");
+app.use(seguridadRouter);
+const usuariosRouter = require("./routes/usuarios");
+app.use(usuariosRouter);
+
 
 
 // levantar servidor
