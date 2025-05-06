@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -12,11 +11,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
-    "express": "^4.18.2",
-    "sequelize": "^6.31.1",
-    "sqlite3": "^5.1.6"
+    "express": "^4.21.2",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }

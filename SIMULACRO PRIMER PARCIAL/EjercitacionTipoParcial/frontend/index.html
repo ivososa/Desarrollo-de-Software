@@ -16,11 +16,36 @@
         <!-- Controles de Búsqueda y Agregar -->
         <div class="row mb-3">
             <div class="col-md-6 offset-md-3">
-                <div class="input-group">
+                <div class="input-group mb-2">
                     <input type="text" id="searchInput" class="form-control" placeholder="Buscar por propietario...">
                     <button class="btn btn-primary" type="button" id="searchButton">Buscar</button>
                 </div>
+                <div class="d-grid">
+                    <button class="btn btn-success" type="button" id="newPatientButton">Agregar Paciente</button>
+                </div>
             </div>
+        </div>
+
+        <!-- Formulario para Editar / Agregar -->
+        <div id="formContainer" class="mt-4" style="display: none;">
+            <h3 id="formTitle">Editar Paciente</h3>
+            <form id="patientForm">
+                <input type="hidden" id="inputId">
+                <div class="mb-3">
+                    <label for="inputNombre" class="form-label">Nombre Mascota</label>
+                    <input type="text" id="inputNombre" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputPropietario" class="form-label">Propietario</label>
+                    <input type="text" id="inputPropietario" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputTelefono" class="form-label">Teléfono</label>
+                    <input type="text" id="inputTelefono" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-secondary" id="cancelEdit">Cancelar</button>
+            </form>
         </div>
 
         <!-- Listado de Pacientes -->
@@ -39,9 +64,11 @@
                     <!-- Filas de pacientes se cargarán aquí con JavaScript -->
                 </tbody>
             </table>
+
              <p id="no-patients-message" style="display: none;">No se encontraron pacientes.</p>
         </div>
 
+        <div id="paginationControls"></div>
     </div>
 
     <!-- Enlace a nuestro archivo JavaScript principal -->
