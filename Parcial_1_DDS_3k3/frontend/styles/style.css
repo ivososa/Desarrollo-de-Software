@@ -1,0 +1,8 @@
+/* Estilos opcionales adicionales */
+.d-none {
+    display: none;
+}
+
+#mensajes {
+    margin-bottom: 1rem;
+}
