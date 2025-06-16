@@ -1,0 +1,162 @@
+[
+  {
+    "IdContrato": 1,
+    "NombreContrato": "Alquiler de vehículo 4x4",
+    "FechaInicio": "2025-01-01",
+    "FechaFin": "2026-01-01",
+    "ImporteMensual": 100000,
+    "TelefonoContacto": "3516809050"
+  },
+  {
+    "IdContrato": 2,
+    "NombreContrato": "Compra de embarcación de lujo",
+    "FechaInicio": "2025-02-01",
+    "FechaFin": "2026-02-01",
+    "ImporteMensual": 500000,
+    "TelefonoContacto": "3516809051"
+  },
+  {
+    "IdContrato": 3,
+    "NombreContrato": "Alquiler de departamento en centro",
+    "FechaInicio": "2025-03-01",
+    "FechaFin": "2026-03-01",
+    "ImporteMensual": 2000000,
+    "TelefonoContacto": "3516809052"
+  },
+  {
+    "IdContrato": 4,
+    "NombreContrato": "Compra de casa en barrio Oeste",
+    "FechaInicio": "2025-04-01",
+    "FechaFin": "2026-04-01",
+    "ImporteMensual": 3000000,
+    "TelefonoContacto": "3516809053"
+  },
+  {
+    "IdContrato": 5,
+    "NombreContrato": "Alquiler de departamento en zona comercial",
+    "FechaInicio": "2025-05-01",
+    "FechaFin": "2026-05-01",
+    "ImporteMensual": 1800000,
+    "TelefonoContacto": "3516809054"
+  },
+  {
+    "IdContrato": 6,
+    "NombreContrato": "Compra de vehículo deportivo",
+    "FechaInicio": "2025-06-01",
+    "FechaFin": "2026-06-01",
+    "ImporteMensual": 150000,
+    "TelefonoContacto": "3516809055"
+  },
+  {
+    "IdContrato": 7,
+    "NombreContrato": "Alquiler de casa en barrio Norte",
+    "FechaInicio": "2025-07-01",
+    "FechaFin": "2026-07-01",
+    "ImporteMensual": 2500000,
+    "TelefonoContacto": "3516809056"
+  },
+  {
+    "IdContrato": 8,
+    "NombreContrato": "Compra de embarcación de recreo",
+    "FechaInicio": "2025-08-01",
+    "FechaFin": "2026-08-01",
+    "ImporteMensual": 400000,
+    "TelefonoContacto": "3516809057"
+  },
+  {
+    "IdContrato": 9,
+    "NombreContrato": "Alquiler de departamento en zona universitaria",
+    "FechaInicio": "2025-09-01",
+    "FechaFin": "2026-09-01",
+    "ImporteMensual": 2200000,
+    "TelefonoContacto": "3516809058"
+  },
+  {
+    "IdContrato": 10,
+    "NombreContrato": "Compra de casa en barrio Este",
+    "FechaInicio": "2025-10-01",
+    "FechaFin": "2026-10-01",
+    "ImporteMensual": 3500000,
+    "TelefonoContacto": "3516809059"
+  },
+  {
+    "IdContrato": 11,
+    "NombreContrato": "Alquiler de departamento en zona comercial",
+    "FechaInicio": "2025-11-01",
+    "FechaFin": "2026-11-01",
+    "ImporteMensual": 2000000,
+    "TelefonoContacto": "3516809060"
+  },
+  {
+    "IdContrato": 12,
+    "NombreContrato": "Compra de vehículo híbrido",
+    "FechaInicio": "2025-12-01",
+    "FechaFin": "2026-12-01",
+    "ImporteMensual": 120000,
+    "TelefonoContacto": "3516809061"
+  },
+  {
+    "IdContrato": 13,
+    "NombreContrato": "Alquiler de casa en barrio Oeste",
+    "FechaInicio": "2026-01-01",
+    "FechaFin": "2027-01-01",
+    "ImporteMensual": 2800000,
+    "TelefonoContacto": "3516809062"
+  },
+  {
+    "IdContrato": 14,
+    "NombreContrato": "Compra de embarcación de crucero",
+    "FechaInicio": "2026-02-01",
+    "FechaFin": "2027-02-01",
+    "ImporteMensual": 600000,
+    "TelefonoContacto": "3516809063"
+  },
+  {
+    "IdContrato": 15,
+    "NombreContrato": "Alquiler de departamento en zona universitaria",
+    "FechaInicio": "2026-03-01",
+    "FechaFin": "2027-03-01",
+    "ImporteMensual": 2400000,
+    "TelefonoContacto": "3516809064"
+  },
+  {
+    "IdContrato": 16,
+    "NombreContrato": "Compra de casa en barrio Este",
+    "FechaInicio": "2026-04-01",
+    "FechaFin": "2027-04-01",
+    "ImporteMensual": 3800000,
+    "TelefonoContacto": "3516809065"
+  },
+  {
+    "IdContrato": 17,
+    "NombreContrato": "Alquiler de departamento en zona comercial",
+    "FechaInicio": "2026-05-01",
+    "FechaFin": "2027-05-01",
+    "ImporteMensual": 2100000,
+    "TelefonoContacto": "3516809066"
+  },
+  {
+    "IdContrato": 18,
+    "NombreContrato": "Compra de vehículo eléctrico",
+    "FechaInicio": "2026-06-01",
+    "FechaFin": "2027-06-01",
+    "ImporteMensual": 140000,
+    "TelefonoContacto": "3516809067"
+  },
+  {
+    "IdContrato": 19,
+    "NombreContrato": "Alquiler de casa en barrio Norte",
+    "FechaInicio": "2026-07-01",
+    "FechaFin": "2027-07-01",
+    "ImporteMensual": 2900000,
+    "TelefonoContacto": "3516809068"
+  },
+  {
+    "IdContrato": 20,
+    "NombreContrato": "Compra de embarcación de pesca",
+    "FechaInicio": "2026-08-01",
+    "FechaFin": "2027-08-01",
+    "ImporteMensual": 420000,
+    "TelefonoContacto": "3516809069"
+  }
+]

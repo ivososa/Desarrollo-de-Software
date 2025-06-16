@@ -1,0 +1,151 @@
+{
+  "info": {
+    "_postman_id": "d6e1b7e0-1234-4bcd-9a1a-abcdef123456",
+    "name": "DDS Backend 2025 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Categorias",
+      "item": [
+        {
+          "name": "Obtener todas las categorías",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/categorias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categorias"]
+            }
+          }
+        },
+        {
+          "name": "Crear categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ejemplo\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/categorias",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categorias"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Artículos",
+      "item": [
+        {
+          "name": "Obtener todos los artículos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/articulos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["articulos"]
+            }
+          }
+        },
+        {
+          "name": "Crear artículo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Artículo de ejemplo\",\n  \"categoriaId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/articulos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["articulos"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Obtener todos los usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/usuarios",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["usuarios"]
+            }
+          }
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Usuario de ejemplo\",\n  \"email\": \"ejemplo@correo.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/usuarios",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["usuarios"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Seguridad",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ejemplo@correo.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["login"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
