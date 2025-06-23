@@ -1,0 +1,185 @@
+# Resumen: Testing y Seguridad Web
+
+## Testing de Software
+
+### Definición y Beneficios
+El testing es el proceso de evaluar y verificar que un software hace lo que debe hacer. Previene errores, reduce costos de desarrollo y mejora el rendimiento.
+
+### Tipos de Pruebas
+
+#### Pruebas Funcionales
+Se enfocan en verificar que cada característica funcione según los requisitos:
+
+- **Pruebas Unitarias**: Prueban la unidad más básica del código (técnica de caja blanca)
+- **Pruebas de Integración**: Verifican la interacción entre componentes
+- **Pruebas de Interfaz**: Validan el intercambio de datos entre componentes
+- **Pruebas del Sistema**: Prueban todo el sistema como una unidad
+- **Pruebas de Regresión**: Verifican que funcionalidades previas sigan funcionando
+- **Pruebas de Humo**: Verifican funcionalidad básica en aplicaciones inestables
+- **Pruebas de Saneamiento**: Similar a humo pero en aplicaciones estables
+- **Pruebas de Aceptación**: Verifican requerimientos de negocio con usuarios reales
+
+#### Pruebas No Funcionales
+Se centran en el rendimiento y aspectos técnicos:
+
+- **Pruebas de Rendimiento**: Miden tiempo de respuesta, escalabilidad y estabilidad
+- **Pruebas de Estrés**: Someten la aplicación a condiciones anormales hasta el punto de quiebre
+- **Pruebas de Capacidad**: Evalúan el manejo de grandes volúmenes de datos
+- **Pruebas de Carga**: Simulan carga esperada del mundo real
+- **Pruebas de Seguridad**: Verifican protección contra accesos no autorizados
+- **Pruebas de Escalabilidad**: Evalúan capacidad de crecimiento futuro
+- **Pruebas de Usabilidad**: Evalúan facilidad de uso desde perspectiva del usuario
+- **Pruebas de Mantenibilidad**: Verifican capacidad de adaptación a cambios
+- **Pruebas de Compatibilidad**: Prueban funcionamiento en diferentes entornos
+
+### Métodos de Ejecución
+
+- **Pruebas Manuales**: Ejecutadas por personas siguiendo casos de prueba
+- **Pruebas Automatizadas**: Ejecutadas por herramientas y scripts sin intervención manual
+
+### Test-Driven Development (TDD)
+
+Metodología que invierte el proceso tradicional:
+1. Elegir un requisito
+2. Escribir una prueba que falle
+3. Verificar que la prueba falla
+4. Escribir código mínimo para que pase
+5. Ejecutar todas las pruebas
+6. Refactorizar eliminando duplicación
+7. Actualizar lista de requisitos
+
+Beneficios: código limpio, garantía de cumplimiento de requisitos, facilita integración continua.
+
+### Herramientas: Jest
+
+Framework de pruebas unitarias popular en JavaScript usado por Airbnb, Twitter, Spotify.
+
+**Instalación:**
+```json
+"devDependencies": {
+  "jest": "~29.7.0"
+}
+```
+
+**Ejemplo básico:**
+```javascript
+// index.js
+export function sumar(a, b) {
+  return a + b;
+}
+
+// primer.test.js
+import sumar from "./index.js";
+
+test("Esto suma dos números", () => {
+  const a = 1;
+  const b = 1;
+  const expected = a + b;
+  const res = sumar(a, b);
+  expect(res).toBe(expected);
+})
+```
+
+### Testing de Backend con Supertest
+
+Supertest permite probar APIs HTTP en combinación con Jest.
+
+**Instalación:**
+```bash
+npm install supertest --save-dev
+```
+
+**Ejemplo de uso:**
+```javascript
+import request from 'supertest';
+import app from './app.js';
+
+test('GET /users', async () => {
+  const res = await request(app)
+    .get('/users')
+    .expect(200)
+    .expect('Content-Type', /json/);
+});
+```
+
+**Diferencias importantes:**
+- `toBe()`: Compara valores primitivos o identidad referencial
+- `toEqual()`: Busca igualdad profunda en objetos
+
+## Seguridad Web
+
+### Definición
+La seguridad web protege sitios web del acceso, uso, modificación, destrucción o interrupción no autorizados.
+
+### OWASP Top 10
+
+Ranking de las vulnerabilidades más críticas en aplicaciones web:
+
+#### 1. Broken Access Control (61% de brechas)
+Control de acceso mal implementado que permite acceso no autorizado a recursos.
+
+**Mitigaciones:**
+- No confiar en ofuscación
+- Usar mecanismo único de control de acceso
+- Auditar continuamente
+- Limitar acceso con CORS
+- Registrar fallas repetidas
+
+#### 2. Cryptographic Failures
+Uso incorrecto de criptografía o algoritmos débiles.
+
+#### 3. Inyección SQL
+Permite ejecutar código SQL arbitrario en la base de datos.
+
+**Ejemplo de ataque:**
+```sql
+-- Input malicioso: a';DROP TABLE users; SELECT * FROM userinfo; --
+SELECT * FROM users WHERE name = 'a';DROP TABLE users; SELECT * FROM userinfo; --';
+```
+
+**Prevención:** Escapar caracteres especiales o usar consultas parametrizadas.
+
+#### 4. Insecure Design
+Vulnerabilidades originadas en la etapa de diseño por no considerar riesgos de seguridad.
+
+#### 5. Security Misconfiguration
+Configuración incorrecta de servidores, bases de datos o aplicaciones.
+
+#### 6. Vulnerable and Outdated Components
+Uso de componentes de software obsoletos con vulnerabilidades conocidas.
+
+#### 7. Identification and Authentication Failures
+Implementación inadecuada de mecanismos de autenticación.
+
+#### 8. Software and Data Integrity Failures
+Modificación maliciosa o accidental de datos o software.
+
+#### 9. Security Logging and Monitoring Failures
+Falta de mecanismos adecuados de registro y monitoreo de seguridad.
+
+#### 10. Cross Site Request Forgery (CSRF)
+Ejecución de acciones no autorizadas usando credenciales de otro usuario.
+
+**Prevención:** Usar tokens CSRF únicos por usuario en formularios.
+
+### Otras Vulnerabilidades
+
+- **Cross-Site Scripting (XSS)**: Inyección de scripts maliciosos
+- **Clickjacking**: Secuestro de clics mediante páginas superpuestas
+- **Denial of Service (DoS)**: Inundación con peticiones espúreas
+- **Directory Traversal**: Acceso no autorizado al sistema de archivos
+- **File Inclusion**: Ejecución de archivos no intencionados
+- **Command Injection**: Ejecución de comandos del sistema
+
+### Medidas de Seguridad
+
+1. **Desinfectar datos de entrada** antes de procesarlos
+2. **Gestión efectiva de contraseñas** y autenticación de dos factores
+3. **Configurar HTTPS y HSTS** para encriptar comunicaciones
+4. **Monitorear amenazas actuales** usando recursos como OWASP
+5. **Usar herramientas de escaneo** de vulnerabilidades
+6. **Almacenar mínima información sensible** necesaria
+7. **Aprovechar protecciones** de frameworks web
+
+### Principio Fundamental
+Nunca confiar en datos que vienen del navegador. Toda entrada de usuario debe ser validada y desinfectada antes de su procesamiento.

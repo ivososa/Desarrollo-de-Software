@@ -1,0 +1,323 @@
+Resumen: React - Fundamentos y Conceptos Básicos
+¿Qué es React?
+React es una librería JavaScript para construir interfaces de usuario, desarrollada por Facebook en 2013. A diferencia de frameworks como Angular, React no impone una estructura específica de proyecto, permitiendo mayor flexibilidad en la organización del código.
+Existen variantes como React Native para aplicaciones móviles y React 360 para realidad virtual.
+Características Principales
+
+Declarativo: Se diseñan vistas simples para cada estado, React actualiza automáticamente los componentes cuando cambian los datos
+Basado en Componentes: La interfaz se construye con componentes reutilizables que mantienen su propia lógica
+ReactDOM: Utiliza un DOM Virtual que optimiza el rendimiento al realizar cambios mínimos en el DOM real
+
+JSX: Sintaxis Extendida
+JSX permite mezclar HTML con JavaScript de forma más legible:
+jsxconst titulo = 'Mozilla Developer Network';
+const header = (
+  <header>
+    <h1>{titulo}</h1>
+  </header>
+);
+JSX es más estricto que HTML (requiere cerrar todas las etiquetas) y se transpila a JavaScript usando herramientas como Babel.
+Virtual DOM
+El Virtual DOM es una representación en memoria del DOM real. React:
+
+Crea un nuevo Virtual DOM cuando hay cambios
+Compara con la versión anterior (Diffing)
+Actualiza solo las partes necesarias del DOM real
+
+Esto resulta en mejor rendimiento al evitar manipulaciones costosas del DOM.
+Configuración con Vite
+Vite es la herramienta moderna recomendada para crear proyectos React:
+bashnpm create vite@latest
+# Seleccionar React y JavaScript
+cd mi-app-react
+npm install
+npm run dev
+Vite ofrece mayor velocidad que create-react-app y mejor experiencia de desarrollo.
+Componentes
+Los componentes son piezas independientes y reutilizables de UI. Se pueden definir como clases o funciones, siendo las funciones la forma preferida actualmente.
+Componente Funcional Básico
+jsxfunction MiComponente() {
+  return <button>Soy un botón</button>;
+}
+Props (Propiedades)
+Los componentes reciben datos a través de props:
+jsxfunction Saludo({ nombre }) {
+  return <h1>Hola, {nombre}!</h1>;
+}
+
+// Uso
+<Saludo nombre="Juan" />
+Renderización
+React renderiza componentes en tres pasos:
+
+Construcción del árbol de elementos virtuales
+Comparación con la versión anterior
+Actualización del DOM real
+
+jsxconst root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+Estilos en React
+Clases CSS
+jsxfunction MiComponente() {
+  return <div className="mi-clase">Contenido</div>;
+}
+Estilos en Línea
+jsxfunction MiComponente() {
+  return (
+    <div style={{ backgroundColor: 'red', fontSize: '16px' }}>
+      Contenido con estilos
+    </div>
+  );
+}
+Importar CSS
+jsximport './estilos.css';
+Consideraciones Importantes
+
+Los nombres de componentes deben empezar con mayúscula
+JSX requiere un elemento raíz (se puede usar <>...</> como fragmento)
+Se usa className en lugar de class
+Las propiedades CSS usan camelCase (fontSize en lugar de font-size)
+Los componentes funcionales con hooks han reemplazado a los componentes de clase
+
+Este enfoque modular y declarativo hace que React sea eficiente para construir interfaces complejas de manera organizada y mantenible.
+
+
+
+# React - Componentes
+
+## Fragment
+Fragment permite renderizar múltiples elementos sin crear un elemento padre adicional en el DOM. Se puede usar `<React.Fragment>` o la sintaxis abreviada `<>`.
+
+```jsx
+function MiComponente() {
+  return (
+    <>
+      <h1>Título del componente</h1>
+      <p>Este es el contenido del componente.</p>
+    </>
+  );
+}
+```
+
+**Ventajas:**
+- Evita elementos innecesarios en el DOM
+- Mejora el rendimiento
+- Facilita el trabajo con listas y componentes dinámicos
+
+## Hooks
+Los Hooks son funciones que permiten usar estado y ciclo de vida en componentes funcionales (introducidos en React 16.8.0).
+
+### useState
+Permite agregar estado a componentes funcionales:
+
+```jsx
+import React, { useState } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+### useEffect
+Maneja efectos secundarios y ciclo de vida:
+
+```jsx
+// Al montar el componente (similar a ComponentDidMount)
+useEffect(() => {
+  getCodigoTelefonicoPais();
+}, []);
+
+// Al actualizar (similar a ComponentDidUpdate)
+useEffect(() => {
+  getResumenEmpresa();
+}, [empresa]);
+
+// Al desmontar (similar a ComponentWillUnmount)
+useEffect(() => {
+  return () => {
+    console.log("componente limpiado");
+  };
+}, []);
+```
+
+### Reglas de los Hooks
+1. Solo usar en componentes funcionales o custom hooks
+2. Llamar siempre en el nivel superior (no dentro de bucles o condiciones)
+3. No usar dentro de bucles o condiciones
+
+## Paso de datos entre componentes
+
+### De padre a hijo (Props)
+```jsx
+function Usuario(props) {
+  return <h1>Hola, {props.nombre}</h1>;
+}
+
+function App() {
+  return <Usuario nombre="Sara" />;
+}
+```
+
+### De hijo a padre (Callback)
+```jsx
+// Componente Hijo
+const Nombre = (props) => {
+  return <input name="firstName" onChange={props.onCambios} />;
+}
+
+// Componente padre
+function App() {
+  const onCambioEnHijoHandler = (event) => {
+    console.log("Valor modificado por:" + event.target.value);
+  };
+  
+  return <Nombre onCambios={onCambioEnHijoHandler} />;
+}
+```
+
+## Estado de componente
+El estado mantiene trazabilidad de cambios y re-renderiza el componente:
+
+```jsx
+const Button = () => {
+  const [cantidadClick, setCantidadClick] = useState(0);
+  
+  return (
+    <button onClick={() => setCantidadClick(prevCount => prevCount + 1)}>
+      Cantidad de veces clickeado {cantidadClick}
+    </button>
+  );
+}
+```
+
+## Renderizado condicional
+
+### Con if/else
+```jsx
+function Greeting(props) {
+  if (props.isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
+```
+
+### Con operador lógico &&
+```jsx
+function Mailbox(props) {
+  return (
+    <div>
+      <h1>Hello!</h1>
+      {props.unreadMessages.length > 0 &&
+        <h2>You have {props.unreadMessages.length} unread messages.</h2>
+      }
+    </div>
+  );
+}
+```
+
+### Con operador ternario
+```jsx
+return (
+  <div>
+    The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.
+  </div>
+);
+```
+
+### Evitar renderización
+Devolver `null` para ocultar un componente:
+
+```jsx
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+  return <div className="warning">Warning!</div>;
+}
+```
+
+## Renderizado de listas
+Usar `map()` para renderizar arrays:
+
+```jsx
+const products = [
+  { title: 'Cabbage', id: 1 },
+  { title: 'Garlic', id: 2 },
+  { title: 'Apple', id: 3 },
+];
+
+const listItems = products.map(product =>
+  <li key={product.id}>
+    {product.title}
+  </li>
+);
+
+return <ul>{listItems}</ul>;
+```
+
+**Importante:** Cada elemento debe tener una `key` única.
+
+## Context
+Permite pasar datos a través del árbol de componentes sin prop drilling:
+
+```jsx
+// Crear Context
+const ThemeContext = React.createContext('light');
+
+// Usar Context
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return <button theme={theme}>Botón con tema {theme}</button>;
+}
+
+// Proveer Context
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <ThemedButton />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+## Lifting State Up
+Mover el estado hacia el componente padre común para compartir datos entre componentes hermanos:
+
+```jsx
+// Estado en el padre
+export default function MyApp() {
+  const [count, setCount] = useState(0);
+  
+  function handleClick() {
+    setCount(count + 1);
+  }
+  
+  return (
+    <div>
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+    </div>
+  );
+}
+
+// Componente hijo recibe props
+function MyButton({ count, onClick }) {
+  return (
+    <button onClick={onClick}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+
+Esto permite que múltiples componentes compartan y sincronicen el mismo estado.

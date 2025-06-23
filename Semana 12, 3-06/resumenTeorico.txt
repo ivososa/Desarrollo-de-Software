@@ -1,0 +1,270 @@
+# Resumen: Axios y React Hook Form
+
+## Axios - Librería para Solicitudes HTTP
+
+### ¿Qué es Axios?
+Axios es una librería de JavaScript para realizar solicitudes HTTP. Aunque no es específica de React, se usa ampliamente en proyectos React.
+
+### Ventajas principales:
+- **Facilidad de uso**: API sencilla para solicitudes HTTP
+- **Compatibilidad**: Funciona en navegadores y Node.js
+- **Manejo de errores**: Estructura clara con promesas
+- **Interceptores**: Modificar solicitudes/respuestas antes del procesamiento
+- **Cancelación**: Posibilidad de cancelar solicitudes en curso
+- **Transformación de datos**: Serialización/deserialización automática
+- **Configuración global**: Settings comunes para todas las solicitudes
+
+### Métodos principales:
+```javascript
+axios.get(url[, config])      // Obtener datos
+axios.post(url, data[, config])   // Crear/enviar datos
+axios.put(url, data[, config])    // Actualizar datos
+axios.delete(url[, config])       // Eliminar datos
+```
+
+### Implementación recomendada:
+
+#### 1. Instalación
+```bash
+npm install axios
+```
+
+#### 2. Crear servicio (articulos.service.js)
+```javascript
+import axios from 'axios';
+
+const API_BASE_URL = 'https://dds.frc.utn.edu.ar/api';
+
+async function BuscarTodos() {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/articulos`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+    throw error;
+  }
+}
+
+async function Grabar(item) {
+  if (item.IdArticulo === 0) {
+    await axios.post(`${API_BASE_URL}/articulos`, item);
+  } else {
+    await axios.put(`${API_BASE_URL}/articulos/${item.IdArticulo}`, item);
+  }
+}
+
+async function Baja(item) {
+  await axios.delete(`${API_BASE_URL}/articulos/${item.IdArticulo}`);
+}
+
+export const articulosService = {
+  BuscarTodos,
+  Grabar,
+  Baja
+};
+```
+
+#### 3. Usar en componente React
+```javascript
+import React, { useState, useEffect } from 'react';
+import { articulosService } from './services/articulos.service';
+
+const BuscarArticulos = () => {
+  const [data, setArticulos] = useState(null);
+
+  useEffect(() => {
+    async function BuscarArticulos() {
+      let data = await articulosService.BuscarTodos();
+      setArticulos(data);
+    }
+    BuscarArticulos();
+  }, []);
+
+  return (
+    <div>
+      {data ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Articulo</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((element) => (
+              <tr key={element.IdArticulo}>
+                <td>{element.Nombre}</td>
+                <td>{element.Precio}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Cargando datos...</p>
+      )}
+    </div>
+  );
+};
+```
+
+### Interceptores útiles:
+
+#### Manejo de errores globales
+```javascript
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("Se produjo un error:", error.message);
+    return Promise.reject(error);
+  }
+);
+```
+
+#### Agregar headers automáticamente
+```javascript
+axios.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem("authToken")}`;
+  return config;
+});
+```
+
+---
+
+## React Hook Form - Gestión de Formularios
+
+### ¿Qué es React Hook Form?
+Librería para simplificar la creación y gestión de formularios en React, con enfoque en rendimiento y facilidad de uso.
+
+### Ventajas principales:
+- **Validación sencilla**: Reglas personalizadas y bibliotecas externas
+- **Rendimiento optimizado**: Menos re-renders innecesarios
+- **Manejo de errores**: Sistema simplificado de mensajes
+- **Componentes personalizados**: Fácil integración
+- **Compatibilidad**: Funciona con librerías de diseño
+- **Desarrollo rápido**: Menos código, más productividad
+
+### Componentes principales:
+- **useForm**: Hook principal para inicializar el formulario
+- **register**: Registra campos y establece validaciones
+- **handleSubmit**: Maneja el envío y validación
+- **formState**: Estado del formulario (errores, envío, etc.)
+- **watch**: Observa valores en tiempo real
+- **reset**: Resetea el formulario
+
+### Implementación básica:
+
+#### 1. Instalación
+```bash
+npm install react-hook-form
+```
+
+#### 2. Componente de ejemplo
+```javascript
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+function MiFormulario() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => {
+    console.log('Datos del formulario:', data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="name">Nombre:</label>
+      <input
+        id="name"
+        type="text"
+        {...register('name', { required: 'El campo nombre es requerido' })}
+      />
+      {errors.name && <p>{errors.name.message}</p>}
+
+      <label htmlFor="email">Correo electrónico:</label>
+      <input
+        id="email"
+        type="email"
+        {...register('email', { required: 'El campo correo electrónico es requerido' })}
+      />
+      {errors.email && <p>{errors.email.message}</p>}
+
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
+```
+
+### Reglas de validación:
+
+#### Required (obligatorio)
+```javascript
+{...register('name', { required: 'El campo nombre es requerido' })}
+```
+
+#### Longitud mínima/máxima
+```javascript
+{...register('password', { 
+  minLength: { value: 8, message: 'Mínimo 8 caracteres' } 
+})}
+
+{...register('username', { 
+  maxLength: { value: 20, message: 'Máximo 20 caracteres' } 
+})}
+```
+
+#### Validación personalizada
+```javascript
+{...register('passwordConfirmation', { 
+  validate: (value) => value === password || 'Las contraseñas no coinciden' 
+})}
+```
+
+#### Pattern (expresión regular)
+```javascript
+{...register('email', {
+  required: 'El campo correo electrónico es requerido',
+  pattern: {
+    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,4}$/i,
+    message: 'Ingrese un correo electrónico válido',
+  },
+})}
+```
+
+### FormState - Estados del formulario:
+- **isDirty**: Usuario ha modificado algún campo
+- **isValid**: Todos los campos cumplen validaciones
+- **isSubmitting**: Formulario en proceso de envío
+- **errors**: Errores de validación por campo
+- **isSubmitted**: Formulario enviado al menos una vez
+
+#### Ejemplo avanzado con formState
+```javascript
+const { register, handleSubmit, formState } = useForm();
+const { isDirty, isValid, isSubmitting, errors } = formState;
+
+return (
+  <form onSubmit={handleSubmit(onSubmit)}>
+    {/* campos del formulario */}
+    
+    <button type="submit" disabled={!isValid || isSubmitting}>
+      {isSubmitting ? 'Enviando...' : 'Enviar'}
+    </button>
+    
+    {isDirty && !isValid && 
+      <p>Por favor, completa correctamente todos los campos.</p>
+    }
+  </form>
+);
+```
+
+### Expresiones regulares útiles:
+- **Números**: `/\d+/` - Uno o más dígitos
+- **Alfanumérico**: `/^[A-Za-z0-9]+$/` - Solo letras y números
+- **Email**: `/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,4}$/i`
+
+### Mejores prácticas:
+1. Separar servicios de API de componentes
+2. Usar interceptores para lógica común
+3. Implementar manejo de errores centralizado
+4. Aprovechar formState para mejor UX
+5. Combinar múltiples validaciones cuando sea necesario

@@ -1,0 +1,310 @@
+# Resumen - React Router y React Avanzado
+
+## React Router - Rutas y Navegación
+
+### Instalación y Configuración Básica
+```bash
+npm install react-router-dom
+```
+
+```jsx
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/acerca" element={<Acerca />} />
+          <Route path="/detalle/:id" element={<Detalle />} />
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
+```
+
+### Ventajas del Ruteo del Lado del Cliente
+- Experiencias más rápidas (sin solicitudes completas al servidor)
+- Posibilidad de aplicar animaciones
+- Navegación instantánea entre componentes
+
+### Rutas Anidadas
+```jsx
+// App.js
+<Route path="/admin" element={<Admin />}>
+  <Route path="usuarios" element={<Usuarios />} />
+  <Route path="configuracion" element={<Configuracion />} />
+</Route>
+
+// Admin.js
+import { Outlet, Link } from "react-router-dom";
+export default function Admin() {
+  return (
+    <div>
+      <nav>
+        <Link to="usuarios">Usuarios</Link>
+        <Link to="configuracion">Configuración</Link>
+      </nav>
+      <Outlet /> {/* Aquí se renderizan los componentes hijos */}
+    </div>
+  );
+}
+```
+
+### Hooks Principales
+
+#### useParams
+```jsx
+import { useParams } from "react-router-dom";
+
+function Detalle() {
+  const { id } = useParams(); // Para /detalle/:id
+  const { categoria, id } = useParams(); // Para /productos/:categoria/:id
+  return <div>ID: {id}</div>;
+}
+```
+
+#### useNavigate
+```jsx
+import { useNavigate } from "react-router-dom";
+
+function Componente() {
+  const navigate = useNavigate();
+  
+  return (
+    <button onClick={() => navigate("/contactos")}>
+      Ir a Contactos
+    </button>
+  );
+}
+```
+
+#### useLocation
+```jsx
+import { useLocation, useNavigate } from "react-router-dom";
+
+function Login() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  
+  const handleLogin = () => {
+    navigate(from, { replace: true });
+  };
+}
+```
+
+### Componente Navigate
+```jsx
+import { Navigate } from "react-router-dom";
+
+// Redirección condicional
+{redirectToAcerca && <Navigate to="/acerca" />}
+
+// Ruta protegida
+function RutaProtegida({ children, usuario }) {
+  const location = useLocation();
+  if (!usuario) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  return children;
+}
+```
+
+## React Avanzado - Comunicación entre Componentes
+
+### Comunicación Padre-Hijo con Props
+
+#### Pasando datos del padre al hijo
+```jsx
+// Componente Padre
+function ListaTareas() {
+  const [tareas, setTareas] = useState([]);
+  
+  const eliminarTarea = (indice) => {
+    const nuevasTareas = [...tareas];
+    nuevasTareas.splice(indice, 1);
+    setTareas(nuevasTareas);
+  };
+
+  return (
+    <div>
+      {tareas.map((tarea, index) => (
+        <Tarea
+          key={index}
+          tarea={tarea}
+          indice={index}
+          onDelete={eliminarTarea} // Callback function
+        />
+      ))}
+    </div>
+  );
+}
+
+// Componente Hijo
+function Tarea({ tarea, indice, onDelete }) {
+  return (
+    <li>
+      {tarea}
+      <button onClick={() => onDelete(indice)}>Eliminar</button>
+    </li>
+  );
+}
+```
+
+### Context API - Comunicación Global
+
+#### Creación y uso del Context
+```jsx
+// 1. Crear el contexto
+import { createContext } from "react";
+const ThemeContext = createContext("light");
+
+// 2. Proveedor en el componente padre
+function App() {
+  const [tema, setTema] = useState("light");
+  
+  return (
+    <ThemeContext.Provider value={tema}>
+      <ComponenteHijo />
+    </ThemeContext.Provider>
+  );
+}
+
+// 3. Consumir el contexto en componentes hijos
+import { useContext } from "react";
+function ComponenteHijo() {
+  const tema = useContext(ThemeContext);
+  return <div className={tema}>Contenido</div>;
+}
+```
+
+#### Ejemplo con múltiples valores
+```jsx
+const UsuarioContext = createContext();
+
+function App() {
+  const [usuario, setUsuario] = useState(null);
+  
+  return (
+    <UsuarioContext.Provider value={{ usuario, setUsuario }}>
+      <Header />
+      <Contenido />
+    </UsuarioContext.Provider>
+  );
+}
+
+function Header() {
+  const { usuario } = useContext(UsuarioContext);
+  return <div>Bienvenido: {usuario?.nombre || "Invitado"}</div>;
+}
+```
+
+## Formularios en React
+
+### Componentes Controlados (Recomendado)
+```jsx
+function FormularioControlado() {
+  const [nombre, setNombre] = useState("");
+  
+  const handleChange = (event) => {
+    setNombre(event.target.value);
+  };
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Nombre: ${nombre}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        value={nombre} 
+        onChange={handleChange} 
+      />
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
+```
+
+### Componentes No Controlados
+```jsx
+import { useRef } from "react";
+
+function FormularioNoControlado() {
+  const inputRef = useRef(null);
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Nombre: ${inputRef.current.value}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" ref={inputRef} />
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
+```
+
+### Formulario con Múltiples Campos
+```jsx
+function FormularioCompleto() {
+  const [form, setForm] = useState({ nombre: "", email: "" });
+  
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <form>
+      <input 
+        name="nombre" 
+        value={form.nombre} 
+        onChange={handleChange} 
+      />
+      <input 
+        name="email" 
+        value={form.email} 
+        onChange={handleChange} 
+      />
+      <button onClick={() => console.log(form)}>Enviar</button>
+    </form>
+  );
+}
+```
+
+## Eventos Principales
+
+### onClick
+- Se activa al hacer clic en un elemento
+- Útil para botones, enlaces, imágenes
+
+### onChange
+- Se activa cuando cambia el valor de un input
+- Fundamental para componentes controlados
+- Permite sincronización estado-DOM en tiempo real
+
+## Comparativa: Controlados vs No Controlados
+
+| Aspecto | Controlados | No Controlados |
+|---------|-------------|----------------|
+| Fuente de verdad | Estado de React | DOM |
+| Acceso | value y onChange | ref.current.value |
+| Validación | Sencilla y flexible | Manual |
+| Sincronización | Siempre con el estado | Parcial |
+| Recomendación | ✅ Usar por defecto | Solo casos específicos |
+
+## Buenas Prácticas
+
+1. **Rutas**: Usar rutas anidadas para layouts compartidos
+2. **Props**: Nombrar callbacks como `onAlgo` para claridad
+3. **Context**: Solo para datos globales (usuario, tema, idioma)
+4. **Formularios**: Preferir componentes controlados
+5. **Eventos**: Usar preventDefault() en formularios para evitar recarga de página

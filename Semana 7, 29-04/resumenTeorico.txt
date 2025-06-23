@@ -1,0 +1,182 @@
+# Resumen Express - Router y Middleware
+
+## Express Router
+
+### Concepto de Rutas
+Las rutas son las URLs que definen la estructura y navegación de una aplicación web. Cada ruta corresponde a una página o recurso específico y determina cómo el servidor responde a solicitudes HTTP específicas.
+
+Ejemplos de rutas típicas:
+- `/` - página de inicio
+- `/posts` - lista de publicaciones
+- `/posts/:id` - publicación individual
+- `/about` - página "Acerca de"
+
+### Express Router
+La clase `express.router` permite crear manejadores de rutas montables y modulares. Una instancia router funciona como una miniaplicación que gestiona las rutas de manera organizada.
+
+**Implementación básica:**
+```javascript
+// archivo: articulos.js
+const router = express.Router();
+
+router.get("/api/articulos", async function (req, res, next) {
+    // Código del método
+});
+
+router.get("/api/articulos/:id", async function (req, res, next) {
+    // Código del método
+});
+
+// archivo: index.js
+const articulosRouter = require("./routes/articulos");
+app.use(articulosRouter);
+```
+
+### Archivos Estáticos
+Los archivos estáticos son recursos que se entregan al cliente sin procesamiento (imágenes, CSS, JavaScript).
+
+```javascript
+app.use(express.static('public'));
+```
+
+Esto permite servir archivos desde el directorio 'public'. Un archivo `public/images/logo.png` será accesible en `http://sitio.com/images/logo.png`.
+
+### Módulo Path y __dirname
+El módulo `path` proporciona utilidades para trabajar con rutas de archivos. La variable `__dirname` contiene la ruta del directorio del archivo actual.
+
+```javascript
+path.join(__dirname, 'public')
+```
+
+### CORS (Cross-Origin Resource Sharing)
+Política de navegador que previene el acceso a recursos de dominios diferentes. Para habilitarlo:
+
+```javascript
+npm i cors
+
+var cors = require('cors');
+app.use(cors());
+```
+
+## Middleware
+
+### Definición
+Un middleware conecta dos piezas de la aplicación, actuando como puente donde fluye la información. Recibe información de una función y la envía a otra función diferente.
+
+### Estructura
+Un middleware en Express recibe 3 argumentos:
+```javascript
+function(req, res, next) {
+    // código del middleware
+}
+```
+
+- `req`: objeto Request con información de la solicitud
+- `res`: objeto Response para modificar la respuesta
+- `next`: función que ejecuta el siguiente middleware
+
+### Funcionamiento de next()
+La función `next()` puede terminar de dos formas:
+- **Con éxito**: `next()` sin argumentos
+- **Con error**: `next(new Error('mensaje de error'))`
+
+### Montaje de Middlewares
+
+**Global (todas las rutas):**
+```javascript
+app.use(miMiddleware);
+```
+
+**Específico de ruta:**
+```javascript
+app.get('/', miMiddleware, function(req, res) {
+    // función de respuesta
+});
+```
+
+### Ejemplo de Middleware de Logging
+```javascript
+app.use((req, res, next) => {
+    let current_datetime = new Date();
+    let formatted_date = current_datetime.getFullYear() + "-" + 
+                        (current_datetime.getMonth() + 1) + "-" + 
+                        current_datetime.getDate() + " " + 
+                        current_datetime.getHours() + ":" + 
+                        current_datetime.getMinutes() + ":" + 
+                        current_datetime.getSeconds();
+    
+    let method = req.method;
+    let URL = req.URL;
+    let status = res.statusCode;
+    let log = `[${formatted_date}] ${method}:${URL} ${status}`;
+    
+    console.log(log);
+    next();
+});
+```
+
+## Manejo de Errores
+
+### Middleware de Errores
+Se define al final de otras llamadas a rutas:
+```javascript
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Error interno del servidor');
+});
+```
+
+### Errores Síncronos vs Asíncronos
+- **Síncronos**: Express los detecta automáticamente
+- **Asíncronos**: Deben pasarse a `next(error)` manualmente
+
+### Manejo Automático de Errores Asíncronos
+```bash
+npm install express-async-errors
+```
+
+Permite usar async/await sin capturar errores manualmente.
+
+### Registro de Errores en Archivo
+```javascript
+const fs = require('fs');
+
+app.use(function(err, req, res, next) {
+    fs.appendFile('error.log', `${new Date().toISOString()}: ${err.stack}\n`, 
+        function(err) {
+            if (err) {
+                console.error('No se pudo escribir en el archivo de registro');
+            }
+        });
+    res.status(500).send('Algo salió mal');
+});
+```
+
+### Excepciones No Controladas
+Para capturar errores no manejados:
+
+```javascript
+process.on('uncaughtExceptionMonitor', (err, origin) => {
+    console.log('Error no manejado: ', err);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (error, promise) => {
+    console.log('Promesa rechazada no manejada: ', error);
+});
+```
+
+## Gestores de Procesos para Producción
+
+Los gestores de procesos proporcionan:
+- Reinicio automático si la aplicación se bloquea
+- Información de rendimiento en tiempo real
+- Control de agrupación en clúster
+- Alta disponibilidad
+
+**Gestores principales:**
+- StrongLoop Process Manager
+- PM2
+- Forever
+
+**Nota**: Azure App Service proporciona automáticamente PM2 cuando se usa "App Service Linux, stack Node".
